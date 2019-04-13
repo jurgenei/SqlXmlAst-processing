@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-model>
+    <entities>
+        <entitity name="sdp" type="database"/>
+        <entitity name="dsa" type="database"/>
+        <entitity name="buss" type="database"/>
+        <entitity name="cons" type="database"/>
+
+        <entitity name="xfb" type="folder"/>
+        <entitity name="archive.buss" type="folder"/>
+        <entitity name="archive.cons" type="folder"/>
+        <entitity name="interface.cus" type="folder"/>
+        <entitity name="interface.dsa" type="folder"/>
+        <entitity name="frozen.releases" type="folder"/>
+        <entitity name="vortex.exports" type="folder"/>
+
+
+        <entitity name="app" type="folder"/>
+        <entitity name="tmp" type="folder"/>
+
+        <entitity name="on.screen" type="interface"/>
+        <entitity name="web.service" type="interface"/>
+        <entitity name="mq" type="interface"/>
+
+        <entitity name="email" type="interface"/>
+        <!-- default processor -->
+    </entities>
+    <flows>
+        <!-- incoming sdp interfaces -->
+        <flow from="mq" to="gridinterface" role="push"/>
+        <flow from="gridinterface" to="sdp" role="push"/>
+        <flow from="gridinterface" to="dsa" role="push"/>
+        <flow from="dsa" to="gridinterface" role="push"/>
+
+        <flow from="mq" to="legaladmininterface" role="push"/>
+        <flow from="legaladmininterface" to="sdp" role="push"/>
+        <flow from="mq" to="countylimitinterface" role="push"/>
+        <flow from="countylimitinterface" to="sdp" role="push"/>
+
+        <!-- cusupdater  -->
+        <flow from="sdp" to="cusupdater" role="pull"/>
+        <flow from="cusupdater" to="sdp" role="push"/>
+        <flow from="cusupdater" to="interface.cus" role="push"/>
+
+        <!-- refupdater  -->
+        <flow from="sdp" to="refupdater" role="pull"/>
+        <flow from="refupdater" to="sdp" role="push"/>
+
+        <!-- gmdprocessor  -->
+        <flow from="sdp" to="gmdprocessor" role="pull"/>
+        <flow from="gmdprocessor" to="sdp" role="push"/>
+
+        <!-- custransferscheduler  -->
+        <flow from="interface.cus" to="custransferscheduler" role="pull"/>
+        <flow from="custransferscheduler" to="buss" role="push"/>
+
+        <!-- custransferprocessor  -->
+        <flow from="interface.cus" to="custransferprocessor" role="pull"/>
+        <flow from="custransferprocessor" to="interface.cus" role="pull"/>
+        <flow from="buss" to="custransferprocessor" role="pull"/>
+        <flow from="custransferprocessor" to="buss" role="push"/>
+
+
+        <!-- ftpprocessor -->
+        <flow from="xfb" to="ftpprocessor.buss" role="push"/>
+        <flow from="ftpprocessor.buss" to="xfb" role="pull"/>
+        <flow from="ftpprocessor.buss" to="archive.buss" role="push"/>
+        <flow from="ftpprocessor.buss" to="sdp" role="push"/>
+        <flow from="dsa" to="ftpprocessor.buss" role="push"/>
+        <flow from="xfb" to="ftpprocessor.cons" role="push"/>
+        <flow from="ftpprocessor.cons" to="xfb" role="pull"/>
+        <flow from="ftpprocessor.cons" to="archive.cons" role="push"/>
+        <flow from="ftpprocessor.cons" to="sdp" role="push"/>
+        <flow from="cons" to="ftpprocessor.cons" role="push"/>
+
+        <!-- preprocessor -->
+        <flow from="sdp" to="preprocessor.buss" role="pull"/>
+        <flow from="archive.buss" to="preprocessor.buss" role="pull"/>
+        <flow from="preprocessor.buss" to="interface.dsa" role="push"/>
+        <flow from="preprocessor.buss" to="dsa" role="push"/>
+        <flow from="dsa" to="preprocessor.buss" role="pull"/>
+        <flow from="preprocessor.buss" to="sdp" role="push"/>
+        <flow from="sdp" to="preprocessor.cons" role="pull"/>
+        <flow from="archive.cons" to="preprocessor.cons" role="pull"/>
+        <flow from="preprocessor.cons" to="cons" role="push"/>
+
+        <!-- dsatransferscheduler buss -->
+        <flow from="interface.dsa" to="dsatransferscheduler" role="pull"/>
+        <flow from="dsatransferscheduler" to="buss" role="push"/>
+
+        <!-- dsatransferprocessor buss -->
+        <flow from="interface.dsa" to="dsatransferprocessor" role="read"/>
+        <flow from="dsatransferprocessor" to="interface.dsa" role="remove"/>
+        <flow from="buss" to="dsatransferprocessor" role="pull"/>
+        <flow from="dsatransferprocessor" to="buss" role="push"/>
+
+        <!-- sdtansfer -->
+        <flow from="sdp" to="sdtransfer.buss" role="pull"/>
+        <flow from="sdtransfer.buss" to="buss" role="push"/>
+        <flow from="sdp" to="sdtransfer.cons" role="pull"/>
+        <flow from="sdtransfer.cons" to="cons" role="push"/>
+
+        <!-- vxsdu -->
+        <flow from="xfb" to="vxsdu" role="pull"/>
+        <flow from="vxsdu" to="sdp" role="push"/>
+
+        <!-- vre -->
+        <flow from="buss" to="vre.buss" role="pull"/>
+        <flow from="sdp" to="vre.buss" role="pull"/>
+        <flow from="vre.buss" to="buss" role="push"/>
+        <flow from="cons" to="vre.cons" role="pull"/>
+        <flow from="sdp" to="vre.cons" role="pull"/>
+        <flow from="vre.cons" to="cons" role="push"/>
+
+        <!-- periodicdata -->
+        <flow from="buss" to="periodicdata" role="pull"/>
+        <flow from="periodicdata" to="buss" role="push"/>
+
+        <!-- thresholds -->
+        <flow from="buss" to="thresholds" role="pull"/>
+        <flow from="thresholds" to="buss" role="push"/>
+
+        <!-- sync -->
+        <flow from="buss" to="sync.buss" role="pull"/>
+        <flow from="sync.buss" to="buss" role="push"/>
+        <flow from="cons" to="sync.cons" role="pull"/>
+        <flow from="sync.cons" to="cons" role="push"/>
+
+        <!-- vpp -->
+        <flow from="buss" to="vpp.buss" role="pull"/>
+        <flow from="vpp.buss" to="buss" role="push"/>
+        <flow from="cons" to="vpp.cons" role="pull"/>
+        <flow from="vpp.cons" to="cons" role="push"/>
+
+        <!-- vxxdispatch -->
+        <flow from="buss" to="vxxdispatch.buss" role="pull"/>
+        <flow from="vxxdispatch.buss" to="buss" role="push"/>
+        <flow from="cons" to="vxxdispatch.cons" role="pull"/>
+        <flow from="vxxdispatch.cons" to="cons" role="push"/>
+
+        <!-- vde -->
+        <flow from="buss" to="vde.buss" role="pull"/>
+        <flow from="vde.buss" to="xfb" role="push"/>
+        <flow from="cons" to="vde.cons" role="pull"/>
+        <flow from="vde.cons" to="xfb" role="push"/>
+
+        <!-- sde -->
+        <flow from="sdp" to="sde" role="pull"/>
+        <flow from="sde" to="xfb" role="push"/>
+
+        <!-- gridrecon -->
+        <flow from="sdp" to="gridrecon" role="pull"/>
+        <flow from="gridrecon" to="xfb" role="push"/>
+
+        <!-- corepexport -->
+        <flow from="buss" to="corepexport" role="pull"/>
+        <flow from="corepexport" to="xfb" role="push"/>
+
+
+        <!-- misrarocexport -->
+        <flow from="buss" to="misrarocexport" role="pull"/>
+        <flow from="misrarocexport" to="xfb" role="push"/>
+
+        <!-- export2starpro -->
+        <flow from="buss" to="export2starpro" role="pull"/>
+        <flow from="export2starpro" to="xfb" role="push"/>
+
+        <!-- export_gmdb_request -->
+        <flow from="buss" to="export_gmdb_request" role="pull"/>
+        <flow from="export_gmdb_request" to="xfb" role="push"/>
+
+        <!-- loo_export_lease -->
+        <flow from="buss" to="loo_export_lease" role="pull"/>
+        <flow from="loo_export_lease" to="xfb" role="push"/>
+
+        <!-- loo_export_dbnl -->
+        <flow from="buss" to="loo_export_dbnl" role="pull"/>
+        <flow from="loo_export_dbnl" to="xfb" role="push"/>
+
+        <!-- cfb_export_grid -->
+        <flow from="buss" to="cfb_export_grid" role="pull"/>
+        <flow from="cfb_export_grid" to="xfb" role="push"/>
+
+        <!-- llp_export_recon -->
+        <flow from="buss" to="llp_export_recon" role="pull"/>
+        <flow from="llp_export_recon" to="xfb" role="push"/>
+
+        <!-- raceing_export_pnl -->
+        <flow from="buss" to="raceing_export_pnl" role="pull"/>
+        <flow from="raceing_export_pnl" to="xfb" role="push"/>
+
+        <!-- coreptransfer -->
+        <flow from="cons" to="coreptransfer" role="push"/>
+        <flow from="coreptransfer" to="buss" role="push"/>
+
+
+        <!-- misraroctransfer -->
+        <flow from="cons" to="misraroctransfer" role="push"/>
+        <flow from="misraroctransfer" to="buss" role="push"/>
+
+        <!-- legalentityxfer -->
+        <flow from="buss" to="legalentityxfer" role="push"/>
+        <flow from="legalentityxfer" to="cons" role="push"/>
+
+        <!-- retainedpositions -->
+        <flow from="cons" to="retainedpositions" role="push"/>
+        <flow from="retainedpositions" to="buss" role="push"/>
+
+        <!-- historycleanup.buss -->
+        <flow from="historycleanup.buss" to="buss" role="push"/>
+        <flow from="historycleanup.cons" to="cons" role="push"/>
+
+        <!-- deploy -->
+        <flow from="frozen.releases" to="deploy" role="pull"/>
+        <flow from="deploy" to="app" role="push"/>
+        <flow from="deploy" to="sdp" role="push"/>
+        <flow from="deploy" to="dsa" role="push"/>
+        <flow from="deploy" to="cons" role="push"/>
+        <flow from="deploy" to="buss" role="push"/>
+
+        <!-- iqddl -->
+        <flow from="buss" to="iqddl.buss" role="push"/>
+        <flow from="iqddl.buss" to="vortex.exports" role="pull"/>
+        <flow from="cons" to="iqddl.cons" role="push"/>
+        <flow from="iqddl.cons" to="vortex.exports" role="pull"/>
+
+        <!-- web services in -->
+        <flow from="web.service" to="llpsave" role="push"/>
+        <flow from="llpsave" to="buss"  role="push"/>
+        <flow from="web.service" to="importautorizations" role="push"/>
+        <flow from="importautorizations" to="buss"  role="push"/>
+
+
+        <!-- web services out -->
+        <flow from="buss" to="llpfacilitydata" role="push"/>
+        <flow from="llpfacilitydata" to="web.service" role="push"/>
+
+        <flow from="buss" to="historicriskrating" role="push"/>
+        <flow from="historicriskrating" to="web.service" role="push"/>
+
+        <flow from="buss" to="organisationalpslimit" role="push"/>
+        <flow from="organisationalpslimit" to="web.service" role="push"/>
+
+        <flow from="buss" to="oneobligorriskdata" role="push"/>
+        <flow from="oneobligorriskdata" to="web.service" role="push"/>
+
+        <!-- on screen -->
+
+        <flow from="buss" to="vos1.buss" role="push"/>
+        <flow from="vos1.buss" to="on.screen" role="push"/>
+        <flow from="cons" to="vos1.cons" role="push"/>
+        <flow from="vos1.cons" to="on.screen" role="push"/>
+
+        <flow from="buss" to="vos2.buss" role="push"/>
+        <flow from="vos2.buss" to="on.screen" role="push"/>
+        <flow from="cons" to="vos2.cons" role="push"/>
+        <flow from="vos2.cons" to="on.screen" role="push"/>
+
+        <!-- monitors -->
+
+        <flow from="sdp" to="gmdmailmonitor" role="push"/>
+        <flow from="gmdmailmonitor" to="email" role="push"/>
+
+        <flow from="sdp" to="mailmonitor" role="push"/>
+        <flow from="dsa" to="mailmonitor" role="push"/>
+        <flow from="cons" to="mailmonitor" role="push"/>
+        <flow from="buss" to="mailmonitor" role="push"/>
+        <flow from="mailmonitor" to="email" role="push"/>
+
+        <flow from="cleanupconnections.buss" to="buss" role="push"/>
+        <flow from="cleanupconnections.cons" to="cons" role="push"/>
+
+        <flow from="rtf.buss" to="buss" role="push"/>
+        <flow from="rtf.cons" to="cons" role="push"/>
+
+        <!--
+
+        <flow from="" to="" role="push"/>
+        <flow from="" to="" role="push"/>
+        -->
+    </flows>
+</process-model>

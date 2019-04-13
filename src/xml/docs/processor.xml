@@ -1,0 +1,2955 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<processors>
+    <processor name="ftpprocessor.buss" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="start_ftp_check"/>
+                <call name="end_ftp_check"/>
+            </calls>
+        </database>
+        <database name="dsa">
+            <calls>
+                <call name="get_systems_2b_processed"/>
+                <call name="get_files_2b_processed"/>
+                <call name="check_expected_file"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="ftpprocessor.cons" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="start_ftp_check"/>
+                <call name="end_ftp_check"/>
+                <call name="check_expected_file"/>
+            </calls>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="get_systems_2b_processed"/>
+                <call name="get_files_2b_processed"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="preprocessor.buss" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="reset_unified_preprocessor"/>
+                <call name="get_systems_2b_processed"/>
+                <call name="update_upload_table"/>
+                <call name="ready_2b_processed"/>
+                <call name="cancel_2b_processed"/>
+            </calls>
+        </database>
+        <database name="dsa">
+            <calls>
+                <call name="get_files_2b_processed"/>
+                <call name="main_vortex1"/>
+                <call name="main_vortex2"/>
+                <call name="main_exceptions"/>
+                <call name="check_ref_int"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="preprocessor.cons" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="reset_unified_preprocessor"/>
+                <call name="cons_start_2b_processed"/>
+                <call name="cons_ready_2b_processed"/>
+                <call name="cons_cancel_2b_processed"/>
+            </calls>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="retail_pre"/>
+                <call name="retail_main"/>
+                <call name="retail_main01"/>
+                <call name="retail_exceptions"/> 
+            </calls>
+        </database>
+    </processor>
+    <processor name="cusupdater" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="clean_customer_update_log"/>
+                <call name="reset_sdp_update_processor"/>
+                <call name="get_next_customer_batch"/>
+                <call name="process_grid_customer_batch"/>
+                <call name="process_oper_customer_batch"/>
+                <call name="complete_recent_cust_batch"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="refupdater" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="reset_reference_update_processor"/>
+                <call name="get_next_reference_batch"/>
+                <call name="process_reference_batch"/>
+                <call name="complete_recent_reference_batch"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="gmdprocessor" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="insert_log_gmd"/>
+                <call name="gmd_create_import_table"/>
+                <call name="gmd_post_import"/>
+                <call name="purge_data"/>
+            </calls>
+            <tables>
+                <table name="vortex_security_request_file"/>
+                <table name="loaded_file_set_gmd"/>
+                <table name="gmd_upload_forced"/>
+                <table name="log_gmd_checks"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vxsdu" category="processing">
+        <database name="sdp">
+            <calls>
+                <call name="sdu_post_fixes"/>
+            </calls>
+            <tables>
+                <table name="sdm_import_table_definition"  mode="ro"/>
+                <table name="sdm_import_field_definition"  mode="ro"/>
+                <table name="sdm_import_value_mapping"  mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <!-- todo sp2xml -->
+    <processor name="vre.buss" category="processing">
+        <database name="buss">
+            <calls>
+                <call name="blraroc_load_tables"/>
+                <call name="common_load_tables"/>
+                <call name="country_risk_load_tables"/>
+                <call name="cva_load_tables"/>
+                <call name="ecap_load_tables"/>
+                <call name="ifrs_load_tables"/>
+                <call name="incap_load_tables"/>
+                <call name="ler_load_tables"/>
+                <call name="liq_load_tables"/>
+                <call name="llp_load_tables"/>
+                <call name="ltv_load_tables"/>
+                <call name="recap_load_tables"/>
+                <call name="vre_cds_load_tables"/>
+                <call name="vre_cds_allocation"/>
+                <call name="vre_cds_key_update"/>
+                <call name="vre_cds_load_tables"/>
+                <call name="vre_cds_process_queue"/>
+                <call name="vre_create_input_tables"/>
+                <call name="vre_create_legal_entity_hierarchy"/>
+                <call name="vre_current_facility_type_tree"/>
+                <call name="vre_get_aggr_os_per_customer_lgdmodel"/>
+                <call name="vre_get_configuration"/>
+                <call name="vre_get_country_external_rating"/>
+                <call name="vre_get_cover"/>
+                <call name="vre_get_cover_external_rating"/>
+                <call name="vre_get_cust_default_history"/>
+                <call name="vre_get_customer"/>
+                <call name="vre_get_customer_external_rating"/>
+                <call name="vre_get_failed_systems"/>
+                <call name="vre_get_industry"/>
+                <call name="vre_get_number_of_trees"/>
+                <call name="vre_get_outstanding_amounts"/>
+                <call name="vre_get_outstanding_external_rating"/>
+                <call name="vre_get_outstanding_group"/>
+                <call name="vre_get_outstanding_repayments"/>
+                <call name="vre_get_outstanding_time_band"/>
+                <call name="vre_get_repayments"/>
+                <call name="vre_get_todo_list"/>
+                <call name="vre_process_queue"/>
+            </calls>
+        </database>
+        <database name="sdp">
+            <tables>
+                <table name="accounting_unit" mode="ro"/>
+                <table name="agreement_type" mode="ro"/>
+                <table name="asset_correlation_model_dec" mode="ro"/>
+                <table name="asset_valuation_curve" mode="ro"/>
+                <table name="basel2_approach" mode="ro"/>
+                <table name="basel2_cover_info" mode="ro"/>
+                <table name="basel2_haircut" mode="ro"/>
+                <table name="basel2_sa_eu_equiv_rw_dec" mode="ro"/>
+                <table name="basel_portfolio_dec" mode="ro"/>
+                <table name="booking_office_cluster_cost" mode="ro"/>
+                <table name="break_even_parameter" mode="ro"/>
+                <table name="ccp_decision_list" mode="ro"/>
+                <table name="cg_cure_rate_in_curve" mode="ro"/>
+                <table name="cg_curve_unsec_lgd" mode="ro"/>
+                <table name="cg_os_size_customer" mode="ro"/>
+                <table name="cg_pd_model_ifrs" mode="ro"/>
+                <table name="cg_pit_cover_change_curve" mode="ro"/>
+                <table name="cg_pit_cure_rate_curve" mode="ro"/>
+                <table name="cg_pit_pd_curve" mode="ro"/>
+                <table name="cg_pit_unsec_lgd_curve" mode="ro"/>
+                <table name="cg_risk_r_loc_pd_mod_ifrs" mode="ro"/>
+                <table name="clearinghouse" mode="ro"/>
+                <table name="committed_ind_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_ead" mode="ro"/>
+                <table name="committed_ind_cluster_lgd" mode="ro"/>
+                <table name="committed_indicator_cluster" mode="ro"/>
+                <table name="configuration" mode="ro"/>
+                <table name="corep_counterparty_cluster" mode="ro"/>
+                <table name="cost_model_decision_tree" mode="ro"/>
+                <table name="cost_model_type" mode="ro"/>
+                <table name="cost_parameters" mode="ro"/>
+                <table name="cost_type" mode="ro"/>
+                <table name="country" mode="ro"/>
+                <table name="country_cluster" mode="ro"/>
+                <table name="country_cluster_cost" mode="ro"/>
+                <table name="country_cluster_ead" mode="ro"/>
+                <table name="country_cluster_lgd" mode="ro"/>
+                <table name="cover_cap" mode="ro"/>
+                <table name="cover_index" mode="ro"/>
+                <table name="cover_type" mode="ro"/>
+                <table name="cover_type_cluster" mode="ro"/>
+                <table name="cover_type_cluster_lgd" mode="ro"/>
+                <table name="credit_conv_factor" mode="ro"/>
+                <table name="credit_process_cluster_cost" mode="ro"/>
+                <table name="cure_rate_dec" mode="ro"/>
+                <table name="currency" mode="ro"/>
+                <table name="currency_cluster" mode="ro"/>
+                <table name="currency_cluster_cost" mode="ro"/>
+                <table name="currency_mismatch_haircut" mode="ro"/>
+                <table name="customer_segment_cluster" mode="ro"/>
+                <table name="customer_segment_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster_ead" mode="ro"/>
+                <table name="customer_segment_cluster_lgd" mode="ro"/>
+                <table name="customer_type" mode="ro"/>
+                <table name="customer_type_cluster" mode="ro"/>
+                <table name="customer_type_cluster_cost" mode="ro"/>
+                <table name="customer_type_cluster_ead" mode="ro"/>
+                <table name="customer_type_cluster_lgd" mode="ro"/>
+                <table name="cva_capital_eligible_dec" mode="ro"/>
+                <table name="direct_costs" mode="ro"/>
+                <table name="discount_factor_cover" mode="ro"/>
+                <table name="dnb_add_on_percentage" mode="ro"/>
+                <table name="e_factor_decision_list" mode="ro"/>
+                <table name="eca_cover_provider" mode="ro"/>
+                <table name="emir_classification" mode="ro"/>
+                <table name="entity" mode="ro"/>
+                <table name="eu_equivalence_dec" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <table name="existing_limit_cluster_ead" mode="ro"/>
+                <table name="existing_limit_cluster_lgd" mode="ro"/>
+                <table name="exposure_class" mode="ro"/>
+                <table name="exposure_class_irb_dec" mode="ro"/>
+                <table name="exposure_class_sa" mode="ro"/>
+                <table name="exposure_class_sa_cov_dec" mode="ro"/>
+                <table name="exposure_class_sa_dec" mode="ro"/>
+                <table name="external_rating_scale" mode="ro"/>
+                <table name="facility_purpose" mode="ro"/>
+                <table name="facility_purpose_cluster" mode="ro"/>
+                <table name="facility_purpose_cluster_cost" mode="ro"/>
+                <table name="facility_purpose_cluster_ead" mode="ro"/>
+                <table name="facility_purpose_cluster_lgd" mode="ro"/>
+                <table name="facility_type" mode="ro"/>
+                <table name="finrep_purpose_dec" mode="ro"/>
+                <table name="finrep_sector_dec" mode="ro"/>
+                <table name="finrep_subordination_dec" mode="ro"/>
+                <table name="forbearance_measure_type_dec" mode="ro"/>
+                <table name="forbearance_outcome_dec" mode="ro"/>
+                <table name="forbearance_status_dec" mode="ro"/>
+                <table name="functional_parameter" mode="ro"/>
+                <table name="g_factor_decision_list" mode="ro"/>
+                <table name="grid_basic_customer" mode="ro"/>
+                <table name="h_factor_decision_list" mode="ro"/>
+                <table name="h_factor_le" mode="ro"/>
+                <table name="ifrs9_eligible_dec" mode="ro"/>
+                <table name="ifrs9_finrep_subord_dec" mode="ro"/>
+                <table name="ifrs_maturity_dec" mode="ro"/>
+                <table name="ifrs_staging_dec" mode="ro"/>
+                <table name="income_type" mode="ro"/>
+                <table name="indirect_costs" mode="ro"/>
+                <table name="industry_nace_rev_2_0" mode="ro"/>
+                <table name="industry_type" mode="ro"/>
+                <table name="industry_type_cluster" mode="ro"/>
+                <table name="industry_type_cluster_cost" mode="ro"/>
+                <table name="initiating_office_cluster_cost" mode="ro"/>
+                <table name="k_factor_decision_list" mode="ro"/>
+                <table name="la_agreement" mode="ro"/>
+                <table name="la_netting_branch_comb" mode="ro"/>
+                <table name="la_netting_product" mode="ro"/>
+                <table name="legal_entity_cluster_cost" mode="ro"/>
+                <table name="leverage_ratio_exposure_ccf" mode="ro"/>
+                <table name="lgd_boundaries_dec" mode="ro"/>
+                <table name="lgd_model" mode="ro"/>
+                <table name="limit_type_cluster_cost" mode="ro"/>
+                <table name="liquidity_decision_list" mode="ro"/>
+                <table name="local_currency" mode="ro"/>
+                <table name="local_offic_approach_dec" mode="ro"/>
+                <table name="macro_econ_scenario" mode="ro"/>
+                <table name="macro_econ_scenario_wgt" mode="ro"/>
+                <table name="maturity_dec" mode="ro"/>
+                <table name="maturity_mismatch_haircut" mode="ro"/>
+                <table name="model_decision_tree" mode="ro"/>
+                <table name="negative_pledge_cluster_lgd" mode="ro"/>
+                <table name="nhg_cluster_lgd" mode="ro"/>
+                <table name="office" mode="ro"/>
+                <table name="office_cluster" mode="ro"/>
+                <table name="office_cluster_ead" mode="ro"/>
+                <table name="office_cluster_lgd" mode="ro"/>
+                <table name="pd_model_decision" mode="ro"/>
+                <table name="pd_model_parameter" mode="ro"/>
+                <table name="pd_model_quality_driver" mode="ro"/>
+                <table name="pd_model_quantity_driver" mode="ro"/>
+                <table name="pd_model_risk_driver" mode="ro"/>
+                <table name="pd_model_risk_driver_wght" mode="ro"/>
+                <table name="pd_submodel_dec" mode="ro"/>
+                <table name="pit_cover_change_curve" mode="ro"/>
+                <table name="pit_cure_rate_curve" mode="ro"/>
+                <table name="pit_pd_curve" mode="ro"/>
+                <table name="pit_unsecured_lgd_curve" mode="ro"/>
+                <table name="prepayment_rate" mode="ro"/>
+                <table name="product_type_cluster" mode="ro"/>
+                <table name="product_type_cluster_ead" mode="ro"/>
+                <table name="product_type_cluster_lgd" mode="ro"/>
+                <table name="rating_agency" mode="ro"/>
+                <table name="reason_by_category" mode="ro"/>
+                <table name="refinance_rate_dec" mode="ro"/>
+                <table name="region" mode="ro"/>
+                <table name="region_cluster_lgd" mode="ro"/>
+                <table name="regulated_cluster_ead" mode="ro"/>
+                <table name="regulated_cluster_lgd" mode="ro"/>
+                <table name="regulated_indicator" mode="ro"/>
+                <table name="regulated_indicator_direct" mode="ro"/>
+                <table name="related_party_cluster_lgd" mode="ro"/>
+                <table name="repayment_schedule_dec" mode="ro"/>
+                <table name="reporting_entities" mode="ro"/>
+                <table name="reporting_entity_le_exem" mode="ro"/>
+                <table name="risk_degree_securitisation" mode="ro"/>
+                <table name="risk_horizon_dec" mode="ro"/>
+                <table name="risk_rating" mode="ro"/>
+                <table name="risk_rating_cluster" mode="ro"/>
+                <table name="risk_rating_cluster_cost" mode="ro"/>
+                <table name="risk_rating_cluster_ead" mode="ro"/>
+                <table name="risk_rating_cluster_lgd" mode="ro"/>
+                <table name="risk_rating_loc_pd_model" mode="ro"/>
+                <table name="risk_rating_model" mode="ro"/>
+                <table name="risk_rating_value" mode="ro"/>
+                <table name="risk_weight_add_on_dec" mode="ro"/>
+                <table name="risk_weight_cva_capital" mode="ro"/>
+                <table name="risk_weight_securitisation_irb" mode="ro"/>
+                <table name="rule_assignment" mode="ro"/>
+                <table name="sa_riskweight" mode="ro"/>
+                <table name="sa_riskweight_condition_dec" mode="ro"/>
+                <table name="securitisation_investor" mode="ro"/>
+                <table name="securitisation_legal_entity" mode="ro"/>
+                <table name="securitisation_sponsor" mode="ro"/>
+                <table name="securitisation_tranche" mode="ro"/>
+                <table name="segmentation_type" mode="ro"/>
+                <table name="sme_supporting_factor_dec" mode="ro"/>
+                <table name="source_system" mode="ro"/>
+                <table name="system_cluster" mode="ro"/>
+                <table name="unsecured_lgd_dec" mode="ro"/>
+                <table name="zero_rrw_sovereign_dec" mode="ro"/>
+                <table name="zip" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vre.cons" category="processing">
+        <database name="cons">
+            <calls>
+                <call name="blraroc_load_tables"/>
+                <call name="common_load_tables"/>
+                <call name="country_risk_load_tables"/>
+                <call name="cva_load_tables"/>
+                <call name="ecap_load_tables"/>
+                <call name="ifrs_load_tables"/>
+                <call name="incap_load_tables"/>
+                <call name="ler_load_tables"/>
+                <call name="liq_load_tables"/>
+                <call name="llp_load_tables"/>
+                <call name="ltv_load_tables"/>
+                <call name="recap_load_tables"/>
+                <call name="vre_cds_load_tables"/>
+                <call name="vre_cds_allocation"/>
+                <call name="vre_cds_key_update"/>
+                <call name="vre_cds_load_tables"/>
+                <call name="vre_cds_process_queue"/>
+                <call name="vre_create_input_tables"/>
+                <call name="vre_create_legal_entity_hierarchy"/>
+                <call name="vre_current_facility_type_tree"/>
+                <call name="vre_get_aggr_os_per_customer_lgdmodel"/>
+                <call name="vre_get_configuration"/>
+                <call name="vre_get_country_external_rating"/>
+                <call name="vre_get_cover"/>
+                <call name="vre_get_cover_external_rating"/>
+                <call name="vre_get_cust_default_history"/>
+                <call name="vre_get_customer"/>
+                <call name="vre_get_customer_external_rating"/>
+                <call name="vre_get_failed_systems"/>
+                <call name="vre_get_industry"/>
+                <call name="vre_get_number_of_trees"/>
+                <call name="vre_get_outstanding_amounts"/>
+                <call name="vre_get_outstanding_external_rating"/>
+                <call name="vre_get_outstanding_group"/>
+                <call name="vre_get_outstanding_repayments"/>
+                <call name="vre_get_outstanding_time_band"/>
+                <call name="vre_get_repayments"/>
+                <call name="vre_get_todo_list"/>
+                <call name="vre_process_queue"/>
+            </calls>
+        </database>
+        <database name="sdp">
+            <tables>
+                <table name="accounting_unit" mode="ro"/>
+                <table name="agreement_type" mode="ro"/>
+                <table name="asset_correlation_model_dec" mode="ro"/>
+                <table name="asset_valuation_curve" mode="ro"/>
+                <table name="basel2_approach" mode="ro"/>
+                <table name="basel2_cover_info" mode="ro"/>
+                <table name="basel2_haircut" mode="ro"/>
+                <table name="basel2_sa_eu_equiv_rw_dec" mode="ro"/>
+                <table name="basel_portfolio_dec" mode="ro"/>
+                <table name="booking_office_cluster_cost" mode="ro"/>
+                <table name="break_even_parameter" mode="ro"/>
+                <table name="ccp_decision_list" mode="ro"/>
+                <table name="cg_cure_rate_in_curve" mode="ro"/>
+                <table name="cg_curve_unsec_lgd" mode="ro"/>
+                <table name="cg_os_size_customer" mode="ro"/>
+                <table name="cg_pd_model_ifrs" mode="ro"/>
+                <table name="cg_pit_cover_change_curve" mode="ro"/>
+                <table name="cg_pit_cure_rate_curve" mode="ro"/>
+                <table name="cg_pit_pd_curve" mode="ro"/>
+                <table name="cg_pit_unsec_lgd_curve" mode="ro"/>
+                <table name="cg_risk_r_loc_pd_mod_ifrs" mode="ro"/>
+                <table name="clearinghouse" mode="ro"/>
+                <table name="committed_ind_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_ead" mode="ro"/>
+                <table name="committed_ind_cluster_lgd" mode="ro"/>
+                <table name="committed_indicator_cluster" mode="ro"/>
+                <table name="configuration" mode="ro"/>
+                <table name="corep_counterparty_cluster" mode="ro"/>
+                <table name="cost_model_decision_tree" mode="ro"/>
+                <table name="cost_model_type" mode="ro"/>
+                <table name="cost_parameters" mode="ro"/>
+                <table name="cost_type" mode="ro"/>
+                <table name="country" mode="ro"/>
+                <table name="country_cluster" mode="ro"/>
+                <table name="country_cluster_cost" mode="ro"/>
+                <table name="country_cluster_ead" mode="ro"/>
+                <table name="country_cluster_lgd" mode="ro"/>
+                <table name="cover_cap" mode="ro"/>
+                <table name="cover_index" mode="ro"/>
+                <table name="cover_type" mode="ro"/>
+                <table name="cover_type_cluster" mode="ro"/>
+                <table name="cover_type_cluster_lgd" mode="ro"/>
+                <table name="credit_conv_factor" mode="ro"/>
+                <table name="credit_process_cluster_cost" mode="ro"/>
+                <table name="cure_rate_dec" mode="ro"/>
+                <table name="currency" mode="ro"/>
+                <table name="currency_cluster" mode="ro"/>
+                <table name="currency_cluster_cost" mode="ro"/>
+                <table name="currency_mismatch_haircut" mode="ro"/>
+                <table name="customer_segment_cluster" mode="ro"/>
+                <table name="customer_segment_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster_ead" mode="ro"/>
+                <table name="customer_segment_cluster_lgd" mode="ro"/>
+                <table name="customer_type" mode="ro"/>
+                <table name="customer_type_cluster" mode="ro"/>
+                <table name="customer_type_cluster_cost" mode="ro"/>
+                <table name="customer_type_cluster_ead" mode="ro"/>
+                <table name="customer_type_cluster_lgd" mode="ro"/>
+                <table name="cva_capital_eligible_dec" mode="ro"/>
+                <table name="direct_costs" mode="ro"/>
+                <table name="discount_factor_cover" mode="ro"/>
+                <table name="dnb_add_on_percentage" mode="ro"/>
+                <table name="e_factor_decision_list" mode="ro"/>
+                <table name="eca_cover_provider" mode="ro"/>
+                <table name="emir_classification" mode="ro"/>
+                <table name="entity" mode="ro"/>
+                <table name="eu_equivalence_dec" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <table name="existing_limit_cluster_ead" mode="ro"/>
+                <table name="existing_limit_cluster_lgd" mode="ro"/>
+                <table name="exposure_class" mode="ro"/>
+                <table name="exposure_class_irb_dec" mode="ro"/>
+                <table name="exposure_class_sa" mode="ro"/>
+                <table name="exposure_class_sa_cov_dec" mode="ro"/>
+                <table name="exposure_class_sa_dec" mode="ro"/>
+                <table name="external_rating_scale" mode="ro"/>
+                <table name="facility_purpose" mode="ro"/>
+                <table name="facility_purpose_cluster" mode="ro"/>
+                <table name="facility_purpose_cluster_cost" mode="ro"/>
+                <table name="facility_purpose_cluster_ead" mode="ro"/>
+                <table name="facility_purpose_cluster_lgd" mode="ro"/>
+                <table name="facility_type" mode="ro"/>
+                <table name="finrep_purpose_dec" mode="ro"/>
+                <table name="finrep_sector_dec" mode="ro"/>
+                <table name="finrep_subordination_dec" mode="ro"/>
+                <table name="forbearance_measure_type_dec" mode="ro"/>
+                <table name="forbearance_outcome_dec" mode="ro"/>
+                <table name="forbearance_status_dec" mode="ro"/>
+                <table name="functional_parameter" mode="ro"/>
+                <table name="g_factor_decision_list" mode="ro"/>
+                <table name="grid_basic_customer" mode="ro"/>
+                <table name="h_factor_decision_list" mode="ro"/>
+                <table name="h_factor_le" mode="ro"/>
+                <table name="ifrs9_eligible_dec" mode="ro"/>
+                <table name="ifrs9_finrep_subord_dec" mode="ro"/>
+                <table name="ifrs_maturity_dec" mode="ro"/>
+                <table name="ifrs_staging_dec" mode="ro"/>
+                <table name="income_type" mode="ro"/>
+                <table name="indirect_costs" mode="ro"/>
+                <table name="industry_nace_rev_2_0" mode="ro"/>
+                <table name="industry_type" mode="ro"/>
+                <table name="industry_type_cluster" mode="ro"/>
+                <table name="industry_type_cluster_cost" mode="ro"/>
+                <table name="initiating_office_cluster_cost" mode="ro"/>
+                <table name="k_factor_decision_list" mode="ro"/>
+                <table name="la_agreement" mode="ro"/>
+                <table name="la_netting_branch_comb" mode="ro"/>
+                <table name="la_netting_product" mode="ro"/>
+                <table name="legal_entity_cluster_cost" mode="ro"/>
+                <table name="leverage_ratio_exposure_ccf" mode="ro"/>
+                <table name="lgd_boundaries_dec" mode="ro"/>
+                <table name="lgd_model" mode="ro"/>
+                <table name="limit_type_cluster_cost" mode="ro"/>
+                <table name="liquidity_decision_list" mode="ro"/>
+                <table name="local_currency" mode="ro"/>
+                <table name="local_offic_approach_dec" mode="ro"/>
+                <table name="macro_econ_scenario" mode="ro"/>
+                <table name="macro_econ_scenario_wgt" mode="ro"/>
+                <table name="maturity_dec" mode="ro"/>
+                <table name="maturity_mismatch_haircut" mode="ro"/>
+                <table name="model_decision_tree" mode="ro"/>
+                <table name="negative_pledge_cluster_lgd" mode="ro"/>
+                <table name="nhg_cluster_lgd" mode="ro"/>
+                <table name="office" mode="ro"/>
+                <table name="office_cluster" mode="ro"/>
+                <table name="office_cluster_ead" mode="ro"/>
+                <table name="office_cluster_lgd" mode="ro"/>
+                <table name="pd_model_decision" mode="ro"/>
+                <table name="pd_model_parameter" mode="ro"/>
+                <table name="pd_model_quality_driver" mode="ro"/>
+                <table name="pd_model_quantity_driver" mode="ro"/>
+                <table name="pd_model_risk_driver" mode="ro"/>
+                <table name="pd_model_risk_driver_wght" mode="ro"/>
+                <table name="pd_submodel_dec" mode="ro"/>
+                <table name="pit_cover_change_curve" mode="ro"/>
+                <table name="pit_cure_rate_curve" mode="ro"/>
+                <table name="pit_pd_curve" mode="ro"/>
+                <table name="pit_unsecured_lgd_curve" mode="ro"/>
+                <table name="prepayment_rate" mode="ro"/>
+                <table name="product_type_cluster" mode="ro"/>
+                <table name="product_type_cluster_ead" mode="ro"/>
+                <table name="product_type_cluster_lgd" mode="ro"/>
+                <table name="rating_agency" mode="ro"/>
+                <table name="reason_by_category" mode="ro"/>
+                <table name="refinance_rate_dec" mode="ro"/>
+                <table name="region" mode="ro"/>
+                <table name="region_cluster_lgd" mode="ro"/>
+                <table name="regulated_cluster_ead" mode="ro"/>
+                <table name="regulated_cluster_lgd" mode="ro"/>
+                <table name="regulated_indicator" mode="ro"/>
+                <table name="regulated_indicator_direct" mode="ro"/>
+                <table name="related_party_cluster_lgd" mode="ro"/>
+                <table name="repayment_schedule_dec" mode="ro"/>
+                <table name="reporting_entities" mode="ro"/>
+                <table name="reporting_entity_le_exem" mode="ro"/>
+                <table name="risk_degree_securitisation" mode="ro"/>
+                <table name="risk_horizon_dec" mode="ro"/>
+                <table name="risk_rating" mode="ro"/>
+                <table name="risk_rating_cluster" mode="ro"/>
+                <table name="risk_rating_cluster_cost" mode="ro"/>
+                <table name="risk_rating_cluster_ead" mode="ro"/>
+                <table name="risk_rating_cluster_lgd" mode="ro"/>
+                <table name="risk_rating_loc_pd_model" mode="ro"/>
+                <table name="risk_rating_model" mode="ro"/>
+                <table name="risk_rating_value" mode="ro"/>
+                <table name="risk_weight_add_on_dec" mode="ro"/>
+                <table name="risk_weight_cva_capital" mode="ro"/>
+                <table name="risk_weight_securitisation_irb" mode="ro"/>
+                <table name="rule_assignment" mode="ro"/>
+                <table name="sa_riskweight" mode="ro"/>
+                <table name="sa_riskweight_condition_dec" mode="ro"/>
+                <table name="securitisation_investor" mode="ro"/>
+                <table name="securitisation_legal_entity" mode="ro"/>
+                <table name="securitisation_sponsor" mode="ro"/>
+                <table name="securitisation_tranche" mode="ro"/>
+                <table name="segmentation_type" mode="ro"/>
+                <table name="sme_supporting_factor_dec" mode="ro"/>
+                <table name="source_system" mode="ro"/>
+                <table name="system_cluster" mode="ro"/>
+                <table name="unsecured_lgd_dec" mode="ro"/>
+                <table name="zero_rrw_sovereign_dec" mode="ro"/>
+                <table name="zip" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="periodicdata" category="processing">
+        <database name="buss">
+            <calls>
+                <call name="process_periodic_data"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="thresholds" category="processing">
+        <database name="buss">
+            <calls>
+                <call name="calculate_thresholds"/>
+            </calls>
+            <tables>
+                <table name="v_threshold_scope_procedure"/>
+                <table name="v_selection_condition"/>
+                <table name="v_threshold_value"/>
+                <table name="v_threshold_selection"/>
+            </tables>
+        </database>
+    </processor>
+    <!-- todo provisions -->
+    <processor name="sync.buss" category="processing">
+        <database name="buss">
+            <calls>
+                <call name="process_workflow_static_data"/>
+                <call name="process_workflow_customer"/>
+                <call name="process_loaded_file_set"/>
+                <call name="process_performance_log"/>
+                <call name="process_performance_result"/>
+                <call name="process_log_start"/>
+                <call name="process_fill_tmp_uploads"/>
+                <call name="process_log_start"/>
+                <call name="process_fill_tmp_combined_uploads"/>
+                <call name="process_queue_le"/>
+                <call name="process_gim_register"/>
+                <call name="process_fill_tmp_sync_customer"/>
+                <call name="process_pre_exchange_rate"/>
+                <call name="process_pre_outstanding"/>
+                <call name="process_pre_facility"/>
+                <call name="process_pre_elec_data_og"/>
+                <call name="process_pre_facility_periodic_data"/>
+                <call name="process_pre_large_exposure"/>
+                <call name="process_pre_operational_recap"/>
+                <call name="process_pre_outstanding_group"/>
+                <call name="process_pre_incap"/>
+                <call name="process_pre_elec_cover"/>
+                <call name="process_pre_credit_risk_measure_og"/>
+                <call name="process_pre_related_borrower"/>
+                <call name="process_pre_outstanding2"/>
+                <call name="process_pre_facility2"/>
+                <call name="process_pre_intermediate_facility"/>
+                <call name="process_pre_facility_run_off_measure"/>
+                <call name="process_pre_cover_measures"/>
+                <call name="process_pre_credit_risk_measure_og2"/>
+                <call name="process_pre_credit_risk_measure_og3"/>
+                <call name="process_pre_large_exposure2"/>
+                <call name="process_pre_allocated_cover_og"/>
+                <call name="process_pre_incap2"/>
+                <call name="process_pre_elec"/>
+                <call name="process_pre_country_risk_measure_og"/>
+                <call name="process_pre_operational_customer"/>
+                <call name="process_pre_cover_type_combinations"/>
+                <call name="process_pre_auth_combinations"/>
+                <call name="process_pre_country_limits"/>
+                <call name="process_pre_country_exposure"/>
+                <call name="process_credit_risk_measure_og"/>
+                <call name="process_country_risk_measure_og"/>
+                <call name="process_facility"/>
+                <call name="process_allocated_cover"/>
+                <call name="process_outstanding"/>
+                <call name="process_recent_credit_risk_measure_og"/>
+                <call name="process_intermediate_facility"/>
+                <call name="process_cover_measures"/>
+                <call name="process_related_borrower"/>
+                <call name="process_facility_run_off_measure"/>
+                <call name="process_recent_country_risk_measure_og"/>
+                <call name="process_recent_facility"/>
+                <call name="process_recent_allocated_cover"/>
+                <call name="process_recent_cover_measures"/>
+                <call name="process_recent_outstanding"/>
+                <call name="process_recent_related_borrower"/>
+                <call name="process_recent_interm_facility"/>
+                <call name="process_exchange_rate"/>
+                <call name="process_endmonth_credit_risk_measure_og"/>
+                <call name="process_country_limits"/>
+                <call name="process_country_exposure"/>
+                <call name="process_recent_operational_customer"/>
+                <call name="process_endmonth_facility"/>
+                <call name="process_provision_system"/>
+                <call name="process_endmonth_related_borrower"/>
+                <call name="process_endmonth_outstanding"/>
+                <call name="process_recent_cr_limits"/>
+                <call name="process_recent_country_exposure"/>
+                <call name="process_recent_facility_run_off_measure"/>
+                <call name="process_endmonth_intermediate_facility"/>
+                <call name="process_recent_customer_exists_as"/>
+                <call name="process_time_period"/>
+                <call name="process_update_non_sync_data"/>
+                <call name="process_integrity_check_monitor"/>
+                <call name="process_activate_operational_system"/>
+                <call name="process_log_finok"/>
+                <call name="process_gim_register"/>
+                <call name="process_endmonth_period"/>
+                <call name="process_update_dmi_action"/>
+                <call name="process_reset_endmonth_bits_credit_risk_measure_og"/>
+                <call name="process_update_dmi_action"/>
+                <call name="process_dwh_to_dmi_async"/>
+                <call name="process_dwh_to_dmi_income"/>
+                <call name="process_dwh_to_dmi_incap_blraroc"/>
+                <call name="process_dwh_to_dmi_periodic_data"/>
+                <call name="process_log_finok"/>
+                <call name="process_dwh_to_dmi_exception"/>
+                <call name="process_dwh_to_dmi_problem_loan"/>
+                <call name="process_dwh_to_dmi_libra"/>
+                <call name="process_dwh_to_dmi_provision_measure"/>
+                <call name="process_pre_dmi_cleanup_operational"/>
+                <call name="process_dmi_cleanup_operational"/>
+                <call name="process_update_dmi_action"/>
+                <call name="process_log_finok"/>
+                <call name="process_workflow_basel"/>
+                <call name="process_workflow_threshold"/>
+                <call name="process_dwh_to_dmi_le"/>
+                <call name="process_dmi_gim_queue"/>
+                <call name="process_history_conversion"/>
+            </calls>
+            <tables>
+                <table name="dmi_recent_credit_risk_measure_og"/>
+                <table name="dmi_recent_facility"/>
+                <table name="dmi_recent_country_risk_measure"/>
+                <table name="dmi_recent_country_risk_measure_og"/>
+                <table name="dmi_recent_country_exposure"/>
+                <table name="dmi_recent_allocated_cover"/>
+                <table name="dmi_recent_interm_facility"/>
+                <table name="dmi_recent_cover_measure"/>
+                <table name="dmi_recent_outstanding"/>
+                <table name="dmi_recent_related_borrower"/>
+                <table name="dmi_recent_facility_run_off_measure"/>
+                <table name="dmi_recent_operational_customer"/>
+                <table name="dmi_recent_cr_limits"/>
+                <table name="dmi_recent_provision_measure"/>
+                <table name="dmi_recent_exception"/>
+                <table name="dmi_recent_exception_maximum"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="sync.cons" category="processing">
+        <database name="cons">
+            <calls>
+                <call name="dmr_syn_workflow_static_data"/>
+                <call name="dmr_syn_performance_log"/>
+                <call name="dmr_syn_performance_result"/>
+                <call name="dmr_syn_loaded_file_set"/>
+                <call name="dmr_syn_fill_uploads"/>
+                <call name="process_dmr_gim_queue"/>
+                <call name="dmr_syn_pre_facility"/>
+                <call name="dmr_syn_pre_operational_recap"/>
+                <call name="dmr_syn_pre_customer"/>
+                <call name="dmr_syn_pre_incap"/>
+                <call name="dmr_syn_pre_elec_cover"/>
+                <call name="dmr_syn_pre_facility_ltv"/>
+                <call name="dmr_syn_pre_cover"/>
+                <call name="dmr_syn_pre_related_borrower"/>
+                <call name="dmr_syn_pre_cover_measure"/>
+                <call name="dmr_syn_pre_rb_measure"/>
+                <call name="dmr_syn_pre_cover_measure2"/>
+                <call name="dmr_syn_pre_incap2"/>
+                <call name="dmr_syn_pre_elec @elec_approach"/>
+                <call name="dmr_syn_pre_country_risk_measure_og"/>
+                <call name="dmr_syn_pre_country_exposure"/>
+                <call name="dmr_syn_aggregate_table"/>
+                <call name="dmr_syn_rb_measure"/>
+                <call name="dmr_syn_cover_measure"/>
+                <call name="dmr_syn_country_risk_measure_og"/>
+                <call name="dmr_syn_country_exposure"/>
+                <call name="dmr_pop_rb_cover_country"/>
+                <call name="dmr_pop_rb_cover_type"/>
+                <call name="dmr_syn_exception"/>
+                <call name="dmr_syn_integrity_check"/>
+                <call name="dmr_syn_integrity_check_monitor"/>
+                <call name="process_dmr_gim_queue"/>
+                <call name="dmr_syn_workflow_recent"/>
+                <call name="dmr_syn_table_recent"/>
+                <call name="dmr_syn_exception_aggr_recent"/>
+                <call name="dmr_syn_main_exception_aggr_recent"/>
+                <call name="dmr_syn_exception_sample_recent"/>
+                <call name="dmr_syn_exception_maximum_recent"/>
+                <call name="dmr_syn_workflow_sync_basel"/>
+                <call name="dmr_syn_aggregates_recap"/>
+                <call name="dmr_syn_recap_measure"/>
+                <call name="dmr_syn_country_risk_recap_measure"/>
+                <call name="dmr_syn_corep_recap"/>
+                <call name="dmr_syn_table_recent"/>
+                <call name="dmr_syn_workflow_main"/>
+                <call name="dmr_syn_workflow_async_basel"/>
+                <call name="dmr_syn_main_incap"/>
+                <call name="dmr_syn_workflow_cleanup"/>
+                <call name="process_dmr_cleanup"/>
+                <call name="dmr_syn_workflow_cleanup"/>
+                <call name="dmr_syn_workflow_update_history"/>
+            </calls>
+            <tables>
+                <table name="dmr_cover_aggr"/>
+                <table name="dmr_rb_aggr_sales_channel"/>
+                <table name="dmr_rb_aggr_res_ctry"/>
+                <table name="dmr_rb_aggr_rem_loan"/>
+                <table name="dmr_rb_aggr_rem_interest"/>
+                <table name="dmr_rb_aggr_ltv"/>
+                <table name="dmr_rb_aggr_ing_legal_entity"/>
+                <table name="dmr_rb_aggr_currency"/>
+                <table name="dmr_rb_aggr_income"/>
+                <table name="dmr_rb_aggr_age"/>
+                <table name="dmr_rb_aggr_main"/>
+                <table name="dmr_country_risk_aggr_main_og"/>
+                <table name="dmr_recap_measure"/>
+                <table name="dmr_country_risk_recap_measure"/>
+                <table name="dmr_recap_aggr_main"/>
+                <table name="dmr_country_risk_recap_aggr"/>
+                <table name="dmr_rb_measure"/>
+                <table name="dmr_cover_measure"/>
+                <table name="dmr_recap_measure"/>
+                <table name="dmr_cover_measure_recent"/>
+                <table name="dmr_recap_measure_recent"/>
+                <table name="dmr_cover_aggr"/>
+                <table name="dmr_recap_aggr_main_recent"/>
+                <table name="dmr_recap_aggr_main"/>
+                <table name="dmr_provision_system"/>
+                <table name="dmr_provision_measure_recent"/>
+                <table name="dmr_provision_measure"/>
+                <table name="dmr_rb_aggr_prov_recent"/>
+                <table name="dmr_rb_aggr_prov"/>
+                <table name="dmr_main_exception_aggr_recent"/>
+                <table name="dmr_main_exception_aggr"/>
+                <table name="dmr_exception_sample_recent"/>
+                <table name="dmr_exception_sample"/>
+                <table name="dmr_exception_maximum_recent"/>
+                <table name="dmr_exception_maximum"/>
+                <table name="dmr_exception_aggr_recent"/>
+                <table name="dmr_exception_aggr"/>
+                <table name="dmr_integrity_check_monitor"/>
+                <table name="dmr_rb_aggr_sales_channel_recent"/>
+                <table name="dmr_rb_aggr_sales_channel"/>
+                <table name="dmr_rb_aggr_res_ctry_recent"/>
+                <table name="dmr_rb_aggr_res_ctry"/>
+                <table name="dmr_rb_aggr_rem_loan_recent"/>
+                <table name="dmr_rb_aggr_rem_loan"/>
+                <table name="dmr_rb_aggr_rem_interest_recent"/>
+                <table name="dmr_rb_aggr_rem_interest"/>
+                <table name="dmr_rb_aggr_main_recent"/>
+                <table name="dmr_rb_aggr_main"/>
+                <table name="dmr_rb_aggr_ltv_recent"/>
+                <table name="dmr_rb_aggr_ltv"/>
+                <table name="dmr_rb_aggr_ing_legal_entity_recent"/>
+                <table name="dmr_rb_aggr_ing_legal_entity"/>
+                <table name="dmr_rb_aggr_income_recent"/>
+                <table name="dmr_rb_aggr_income"/>
+                <table name="dmr_rb_aggr_currency_recent"/>
+                <table name="dmr_rb_aggr_currency"/>
+                <table name="dmr_rb_aggr_all_recent"/>
+                <table name="dmr_rb_aggr_all"/>
+                <table name="dmr_rb_aggr_age_recent"/>
+                <table name="dmr_rb_aggr_age"/>
+                <table name="dmr_country_risk_aggr_main_og"/>
+                <table name="dmr_country_risk_aggr_main_og_recent"/>
+                <table name="dmr_load_recent"/>
+                <table name="dmr_cover_aggr_recent"/>
+                <table name="dmr_country_risk_measure_og"/>
+                <table name="dmr_country_risk_measure_og_recent"/>
+                <table name="dmr_country_exposure"/>
+                <table name="dmr_country_exposure_recent"/>
+                <table name="dmr_country_risk_recap_measure"/>
+                <table name="dmr_country_risk_recap_measure_recent"/>
+                <table name="dmr_country_risk_recap_aggr"/>
+                <table name="dmr_country_risk_recap_aggr_recent"/>
+                <table name="dmr_rb_measure_recent"/>
+                <table name="dmr_rb_measure"/>
+                <table name="dmr_cover_measure"/>
+                <table name="dmr_cover_aggr"/>
+                <table name="dmr_rb_aggr_sales_channel"/>
+                <table name="dmr_rb_aggr_res_ctry"/>
+                <table name="dmr_rb_aggr_rem_loan"/>
+                <table name="dmr_rb_aggr_rem_interest"/>
+                <table name="dmr_rb_aggr_ltv"/>
+                <table name="dmr_rb_aggr_ing_legal_entity"/>
+                <table name="dmr_rb_aggr_currency"/>
+                <table name="dmr_rb_aggr_income"/>
+                <table name="dmr_rb_aggr_age"/>
+                <table name="dmr_rb_aggr_main"/>
+                <table name="dmr_country_risk_aggr_main_og"/>
+                <table name="dmr_country_risk_measure_og"/>
+                <table name="dmr_country_exposure"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vpp.buss" category="processing">
+        <database name="sdp">
+            <tables>
+                <table name="vpp_config"/>
+                <table name="loaded_file_set_vpp"/>
+                <call name="vpp_exception_thresholds"/>
+                <call name="vpp_finrep_details"/>
+                <call name="vpp_movement_event_crawler"/>
+            </tables>
+        </database>
+        <database name="buss">
+            <calls>
+                <call name="vpp_invoke"/>
+            </calls>
+            <tables>
+                <table name="vpp_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="vpp.cons" category="processing">
+        <database name="sdp">
+            <tables>
+                <table name="vpp_config"/>
+                <table name="loaded_file_set_vpp"/>
+                <call name="vpp_exception_thresholds"/>
+                <call name="vpp_finrep_details"/>
+                <call name="vpp_movement_event_crawler"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="vpp_invoke"/>
+            </calls>
+            <tables>
+                <table name="vpp_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vxxdispatch.buss" category="processing">
+        <database name="buss">
+            <calls>
+                <call name="vxx_done"/>
+            </calls>
+            <tables>
+                <table name="vxx_dispatch" mode="ro"/>
+                <table name="vpp_queue" mode="rw"/>
+                <table name="vde_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vxxdispatch.cons" category="processing">
+        <database name="cons">
+            <calls>
+                <call name="vxx_done"/>
+            </calls>
+            <tables>
+                <table name="vxx_dispatch" mode="ro"/>
+                <table name="vpp_queue" mode="rw"/>
+                <table name="vde_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="custransferscheduler" category="transfers">
+        <database name="buss">
+            <tables>
+                <table name="transfer_queue_sdp" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="custransferprocessor" category="transfers">
+        <database name="buss">
+            <calls>
+                <call name="transfer2_basic_customer"/>
+                <call name="transfer2_derived_customer"/>
+                <call name="transfer2_external_customer_rating"/>
+                <call name="transfer2_customer_id_mapping"/>
+            </calls>
+            <tables>
+                <table name="transfer_queue_sdp" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="dsatransferscheduler" category="transfers">
+        <database name="buss">
+            <tables>
+                <table name="transfer_queue_dsa" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="dsatransferprocessor" category="transfers">
+        <database name="buss">
+            <calls>
+                <call name="transfer2_related_cover_prov"/>
+                <call name="transfer2_cover_amount"/>
+                <call name="transfer2_cover_amount_org"/>
+                <call name="transfer2_cover"/>
+                <call name="transfer2_customer_date"/>
+                <call name="transfer2_exception"/>
+                <call name="transfer2_exchange_rate"/>
+                <call name="transfer2_facility_amount_org"/>
+                <call name="transfer2_facility"/>
+                <call name="transfer2_facility_fact"/>
+                <call name="transfer2_facility_run_off"/>
+                <call name="transfer2_facility_time_band_fact"/>
+                <call name="transfer2_grid_cust_risk_rating"/>
+                <call name="transfer2_integrity_check_monitor"/>
+                <call name="transfer2_outstanding_time_band_fact"/>
+                <call name="transfer2_outstanding_amount_org"/>
+                <call name="transfer2_outstanding"/>
+                <call name="transfer2_outstanding_fact"/>
+                <call name="transfer2_outstanding_group"/>
+                <call name="transfer2_outstanding_group_run_off"/>
+                <call name="transfer2_dwh_outstanding_run_off"/>
+                <call name="transfer2_provision_amount"/>
+                <call name="transfer2_provision"/>
+                <call name="transfer2_related_borrower"/>
+                <call name="transfer2_related_borrower_fact"/>
+                <call name="transfer2_repayment_schedule"/>
+                <call name="transfer2_upload_log"/>
+                <call name="transfer2_dwh_securitisation_facility"/>
+                <call name="transfer2_cover_id_mapping"/>
+                <call name="transfer2_facility_id_mapping"/>
+                <call name="transfer2_custom_field"/>
+                <call name="transfer2_local_outstanding_id_mapping"/>
+                <call name="transfer2_customer_forbearance"/>
+                <call name="transfer2_csa"/>
+                <call name="transfer2_agreement"/>
+            </calls>
+            <tables>
+                <table name="transfer_queue_dsa" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="sdtransfer.buss" category="transfers">
+        <database name="sdp">
+            <tables>
+                <table name="accounting_code" mode="ro"/>
+                <table name="accounting_unit" mode="ro"/>
+                <table name="asset_manufact" mode="ro"/>
+                <table name="asset_type" mode="ro"/>
+                <table name="asset_type_securitisation" mode="ro"/>
+                <table name="basel2_approach" mode="ro"/>
+                <table name="basel2_haircut" mode="ro"/>
+                <table name="capital_base" mode="ro"/>
+                <table name="classification_mifid" mode="ro"/>
+                <table name="configuration" mode="ro"/>
+                <table name="country" mode="ro"/>
+                <table name="country_risk_factor" mode="ro"/>
+                <table name="cover_index" mode="ro"/>
+                <table name="cover_type" mode="ro"/>
+                <table name="credit_quality_step" mode="ro"/>
+                <table name="currency" mode="ro"/>
+                <table name="cust_segm_pl" mode="ro"/>
+                <table name="customer_form" mode="ro"/>
+                <table name="customer_status" mode="ro"/>
+                <table name="customer_type" mode="ro"/>
+                <table name="customer_type_cdd" mode="ro"/>
+                <table name="customer_type_industry_combi" mode="ro"/>
+                <table name="customer_type_mifid" mode="ro"/>
+                <table name="customer_type_model" mode="ro"/>
+                <table name="default_type" mode="ro"/>
+                <table name="entity" mode="ro"/>
+                <table name="exception_category" mode="ro"/>
+                <table name="exception_code" mode="ro"/>
+                <table name="exception_specification" mode="ro"/>
+                <table name="exception_type" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <table name="exposure_class" mode="ro"/>
+                <table name="exposure_class_sa" mode="ro"/>
+                <table name="facility_purpose" mode="ro"/>
+                <table name="facility_purpose_cluster" mode="ro"/>
+                <table name="facility_type" mode="ro"/>
+                <table name="global_parameters" mode="ro"/>
+                <table name="income_cost_type" mode="ro"/>
+                <table name="industry_type" mode="ro"/>
+                <table name="industry_type_bik" mode="ro"/>
+                <table name="industry_type_dnb" mode="ro"/>
+                <table name="industry_type_kmv" mode="ro"/>
+                <table name="industry_type_lehman" mode="ro"/>
+                <table name="industry_type_nace" mode="ro"/>
+                <table name="industry_type_snp" mode="ro"/>
+                <table name="industry_type_tcmb" mode="ro"/>
+                <table name="installment_frequency" mode="ro"/>
+                <table name="integrity_check" mode="ro"/>
+                <table name="le_degree_of_monitoring" mode="ro"/>
+                <table name="le_exemption_percentage" mode="ro"/>
+                <table name="legal_base_entity" mode="ro"/>
+                <table name="lev_edu" mode="ro"/>
+                <table name="lgd_ias" mode="ro"/>
+                <table name="lien_mortgage" mode="ro"/>
+                <table name="loan_status" mode="ro"/>
+                <table name="local_currency" mode="ro"/>
+                <table name="mis_raroc_lookup" mode="ro"/>
+                <table name="mis_raroc_office" mode="ro"/>
+                <table name="mis_raroc_product" mode="ro"/>
+                <table name="model" mode="ro"/>
+                <table name="object_use" mode="ro"/>
+                <table name="office" mode="ro"/>
+                <table name="office_base_entity" mode="ro"/>
+                <table name="processing_rule" mode="ro"/>
+                <table name="purpose" mode="ro"/>
+                <table name="rating_agency" mode="ro"/>
+                <table name="rating_model" mode="ro"/>
+                <table name="reason_of_default_appl" mode="ro"/>
+                <table name="region" mode="ro"/>
+                <table name="reporting_entities" mode="ro"/>
+                <table name="risk_level_cdd" mode="ro"/>
+                <table name="risk_rating" mode="ro"/>
+                <table name="risk_rating_country_combi" mode="ro"/>
+                <table name="risk_rating_cus_type_combi" mode="ro"/>
+                <table name="risk_rating_model" mode="ro"/>
+                <table name="risk_rating_value" mode="ro"/>
+                <table name="risk_type" mode="ro"/>
+                <table name="rule_assignment" mode="ro"/>
+                <table name="rule_group" mode="ro"/>
+                <table name="scs_bond" mode="ro"/>
+                <table name="scs_bond_price" mode="ro"/>
+                <table name="scs_combined_security_data" mode="ro"/>
+                <table name="scs_equity" mode="ro"/>
+                <table name="scs_equity_price" mode="ro"/>
+                <table name="scs_external_bond_rating" mode="ro"/>
+                <table name="securitisation_info" mode="ro"/>
+                <table name="securitisation_legal_entity" mode="ro"/>
+                <table name="securitisation_tranche" mode="ro"/>
+                <table name="securitised_positions" mode="ro"/>
+                <table name="segmentation_type" mode="ro"/>
+                <table name="solution" mode="ro"/>
+                <table name="source_system" mode="ro"/>
+                <table name="system_specific_procedure" mode="ro"/>
+                <table name="time_band" mode="ro"/>
+                <table name="transfer_event_probability" mode="ro"/>
+                <table name="upload" mode="ro"/>
+                <table name="work_agree" mode="ro"/>
+                <table name="zip" mode="ro"/>
+                <table name="country_cluster_lgd" mode="ro"/>
+                <table name="product_type_cluster" mode="ro"/>
+                <table name="risk_rating_cluster" mode="ro"/>
+                <table name="term_payment" mode="ro"/>
+                <table name="office_cluster" mode="ro"/>
+                <table name="configuration_set" mode="ro"/>
+                <table name="configuration_set_type" mode="ro"/>
+                <table name="agreement_type" mode="ro"/>
+                <table name="agreement_type_group" mode="ro"/>
+                <table name="applicable_party" mode="ro"/>
+                <table name="governing_law" mode="ro"/>
+                <table name="netting_pool_type" mode="ro"/>
+                <table name="workflow_step_type" mode="ro"/>
+                <table name="la_agreement" mode="ro"/>
+                <table name="la_agreement_product_type" mode="ro"/>
+                <table name="la_condition" mode="ro"/>
+                <table name="la_counterparty_branch" mode="ro"/>
+                <table name="la_ing_legal_entity_branch" mode="ro"/>
+                <table name="la_netting_branch_comb" mode="ro"/>
+                <table name="la_netting_pool" mode="ro"/>
+                <table name="la_netting_product" mode="ro"/>
+                <table name="la_sub_agreement" mode="ro"/>
+                <table name="la_sub_agreement_condition" mode="ro"/>
+                <table name="country_risk_category" mode="ro"/>
+                <table name="global_limit" mode="ro"/>
+                <table name="retention_type" mode="ro"/>
+                <table name="risk_degree_securitisation" mode="ro"/>
+                <table name="risk_weight_securitisation_irb" mode="ro"/>
+                <table name="risk_weight_securitisation_sa" mode="ro"/>
+                <table name="securitisation_ownership_type" mode="ro"/>
+                <table name="external_rating_scale" mode="ro"/>
+                <table name="regulated_indicator_direct" mode="ro"/>
+                <table name="asset_correlation_model" mode="ro"/>
+                <table name="mis_code_be" mode="ro"/>
+                <table name="bus_unit_vysya" mode="ro"/>
+                <table name="loc_segm_nl" mode="ro"/>
+                <table name="loc_segm_ro" mode="ro"/>
+                <table name="loc_segm_tr" mode="ro"/>
+                <table name="exposure_class_irb_dec" mode="ro"/>
+                <table name="exposure_class_sa_dec" mode="ro"/>
+                <table name="income_matching_rule" mode="ro"/>
+                <table name="income_matching_template" mode="ro"/>
+                <table name="income_allocation_method" mode="ro"/>
+                <table name="income_type" mode="ro"/>
+                <table name="risk_weight_cva_capital" mode="ro"/>
+                <table name="pd_model_decision" mode="ro"/>
+                <table name="pd_model_parameter" mode="ro"/>
+                <table name="pd_model_quality_driver" mode="ro"/>
+                <table name="pd_model_quantity_driver" mode="ro"/>
+                <table name="pd_model_risk_driver" mode="ro"/>
+                <table name="pd_model_risk_driver_wght" mode="ro"/>
+                <table name="liquidity_decision_list" mode="ro"/>
+                <table name="ccp_decision_list" mode="ro"/>
+                <table name="clearinghouse" mode="ro"/>
+                <table name="defaulting" mode="ro"/>
+                <table name="cover_cap" mode="ro"/>
+                <table name="currency_mismatch_haircut" mode="ro"/>
+                <table name="maturity_mismatch_haircut" mode="ro"/>
+                <table name="corep_automated_reporting" mode="ro"/>
+                <table name="increase_correlation_ind" mode="ro"/>
+                <table name="risk_weight_bucket_sa" mode="ro"/>
+                <table name="corep_counterparty_cluster" mode="ro"/>
+                <table name="exposure_base" mode="ro"/>
+                <table name="finrep_sector" mode="ro"/>
+                <table name="le_exposure_type" mode="ro"/>
+                <table name="reporting_entity_le_exem" mode="ro"/>
+                <table name="zero_rrw_sovereign_dec" mode="ro"/>
+                <table name="maturity_dec" mode="ro"/>
+                <table name="fx_rate" mode="ro"/>
+                <table name="exp_procedure_parameter_values" mode="ro"/>
+                <table name="periodic_data_set" mode="ro"/>
+                <table name="weighting" mode="ro"/>
+                <table name="one_bank_office" mode="ro"/>
+                <table name="functional_parameter" mode="ro"/>
+                <table name="alco_code" mode="ro"/>
+                <table name="control_parameter" mode="ro"/>
+                <table name="technical_parameter" mode="ro"/>
+                <table name="emir_classification" mode="ro"/>
+                <table name="coupon_type" mode="ro"/>
+                <table name="daycount" mode="ro"/>
+                <table name="external_rating_agency" mode="ro"/>
+                <table name="external_rating_type" mode="ro"/>
+                <table name="instrument_price_type" mode="ro"/>
+                <table name="listing_price_type" mode="ro"/>
+                <table name="market_sector" mode="ro"/>
+                <table name="swap_ranking_type" mode="ro"/>
+                <table name="swap_restructuring_type" mode="ro"/>
+                <table name="tenor_type" mode="ro"/>
+                <table name="time_frequency" mode="ro"/>
+                <table name="instrument_group" mode="ro"/>
+                <table name="cover_type_cluster" mode="ro"/>
+                <table name="committed_indicator" mode="ro"/>
+                <table name="general_indicator" mode="ro"/>
+                <table name="jar_version" mode="ro"/>
+                <table name="leverage_ratio_exposure_ccf" mode="ro"/>
+                <table name="lgd_boundaries_dec" mode="ro"/>
+                <table name="lr_risk_weight_bucket" mode="ro"/>
+                <table name="maturity_age_class" mode="ro"/>
+                <table name="securitisation_investor" mode="ro"/>
+                <table name="securitisation_sponsor" mode="ro"/>
+                <table name="sec_accounting_treatment" mode="ro"/>
+                <table name="sec_basel_approach" mode="ro"/>
+                <table name="sec_exposure_volume" mode="ro"/>
+                <table name="sec_solvency_treatment" mode="ro"/>
+                <table name="sa_riskweight" mode="ro"/>
+                <table name="sa_riskweight_condition_dec" mode="ro"/>
+                <table name="industry_type_nace_2_0" mode="ro"/>
+                <table name="dependent_mapping" mode="ro"/>
+                <table name="sme_supporting_factor_dec" mode="ro"/>
+                <table name="acc_unit_default_decision_tree" mode="ro"/>
+                <table name="activity" mode="ro"/>
+                <table name="age_class" mode="ro"/>
+                <table name="amortisation_repayment" mode="ro"/>
+                <table name="amount_type" mode="ro"/>
+                <table name="asset_valuation_curve" mode="ro"/>
+                <table name="basel2_cover_info" mode="ro"/>
+                <table name="basel2_portfolio" mode="ro"/>
+                <table name="basel2_short_term_exp" mode="ro"/>
+                <table name="booking_office_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_ead" mode="ro"/>
+                <table name="committed_ind_cluster_lgd" mode="ro"/>
+                <table name="condition_template_operator" mode="ro"/>
+                <table name="cost_model" mode="ro"/>
+                <table name="cost_model_decision_tree" mode="ro"/>
+                <table name="cost_model_type" mode="ro"/>
+                <table name="cost_parameters" mode="ro"/>
+                <table name="cost_type" mode="ro"/>
+                <table name="country_cluster" mode="ro"/>
+                <table name="country_cluster_cost" mode="ro"/>
+                <table name="country_cluster_ead" mode="ro"/>
+                <table name="country_factor" mode="ro"/>
+                <table name="country_rr_constant" mode="ro"/>
+                <table name="cover_status" mode="ro"/>
+                <table name="cover_type_cluster_lgd" mode="ro"/>
+                <table name="credit_conv_factor" mode="ro"/>
+                <table name="credit_process" mode="ro"/>
+                <table name="credit_process_cluster_cost" mode="ro"/>
+                <table name="cure_rate" mode="ro"/>
+                <table name="currency_cluster" mode="ro"/>
+                <table name="currency_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster" mode="ro"/>
+                <table name="customer_segment_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster_ead" mode="ro"/>
+                <table name="customer_segment_cluster_lgd" mode="ro"/>
+                <table name="customer_type_cluster" mode="ro"/>
+                <table name="customer_type_cluster_cost" mode="ro"/>
+                <table name="customer_type_cluster_ead" mode="ro"/>
+                <table name="customer_type_cluster_lgd" mode="ro"/>
+                <table name="dependent_defaulting" mode="ro"/>
+                <table name="devaluation_factor" mode="ro"/>
+                <table name="direct_costs" mode="ro"/>
+                <table name="discount_factor_cover" mode="ro"/>
+                <table name="discount_factor_unsecured" mode="ro"/>
+                <table name="e_factor_basel_2" mode="ro"/>
+                <table name="e_factor_ias" mode="ro"/>
+                <table name="e_factor_ing" mode="ro"/>
+                <table name="ead_class" mode="ro"/>
+                <table name="ead_constant" mode="ro"/>
+                <table name="ec_class" mode="ro"/>
+                <table name="eca_cover_provider" mode="ro"/>
+                <table name="economic_capital_parameter" mode="ro"/>
+                <table name="el_class" mode="ro"/>
+                <table name="eligible_cds_office" mode="ro"/>
+                <table name="exception_condition" mode="ro"/>
+                <table name="exception_condition_template" mode="ro"/>
+                <table name="exception_field_definition" mode="ro"/>
+                <table name="exception_reference_path" mode="ro"/>
+                <table name="exception_table_definition" mode="ro"/>
+                <table name="exception_table_join" mode="ro"/>
+                <table name="exchange" mode="ro"/>
+                <table name="existing_limit_cluster_ead" mode="ro"/>
+                <table name="existing_limit_cluster_lgd" mode="ro"/>
+                <table name="expected_file" mode="ro"/>
+                <table name="exposure_class_sa_cov_dec" mode="ro"/>
+                <table name="facility_purpose_cluster_cost" mode="ro"/>
+                <table name="facility_purpose_cluster_ead" mode="ro"/>
+                <table name="facility_purpose_cluster_lgd" mode="ro"/>
+                <table name="field_related_activity" mode="ro"/>
+                <table name="g_factor_basel_2" mode="ro"/>
+                <table name="g_factor_ias" mode="ro"/>
+                <table name="g_factor_ing" mode="ro"/>
+                <table name="h_factor" mode="ro"/>
+                <table name="h_factor_le" mode="ro"/>
+                <table name="income_base" mode="ro"/>
+                <table name="income_class" mode="ro"/>
+                <table name="indirect_costs" mode="ro"/>
+                <table name="industry_factor" mode="ro"/>
+                <table name="industry_rr_constant" mode="ro"/>
+                <table name="industry_type_cluster" mode="ro"/>
+                <table name="industry_type_cluster_cost" mode="ro"/>
+                <table name="ing_legal_entity_own_funds" mode="ro"/>
+                <table name="initiating_office_cluster_cost" mode="ro"/>
+                <table name="institution_type" mode="ro"/>
+                <table name="instrument_type" mode="ro"/>
+                <table name="interest_base" mode="ro"/>
+                <table name="interest_rate" mode="ro"/>
+                <table name="k_factor_basel_2" mode="ro"/>
+                <table name="k_factor_ias" mode="ro"/>
+                <table name="k_factor_ing" mode="ro"/>
+                <table name="kmv_category" mode="ro"/>
+                <table name="legal_entity_cluster_cost" mode="ro"/>
+                <table name="lgd_class" mode="ro"/>
+                <table name="limit_age_class" mode="ro"/>
+                <table name="limit_type_cluster_cost" mode="ro"/>
+                <table name="loan_to_income_class" mode="ro"/>
+                <table name="ltv_class" mode="ro"/>
+                <table name="mapping" mode="ro"/>
+                <table name="marital_status" mode="ro"/>
+                <table name="model_decision_tree" mode="ro"/>
+                <table name="negative_pledge_cluster_lgd" mode="ro"/>
+                <table name="netting_type" mode="ro"/>
+                <table name="nhg_cluster_lgd" mode="ro"/>
+                <table name="office_cluster_ead" mode="ro"/>
+                <table name="office_cluster_lgd" mode="ro"/>
+                <table name="office_gtee_giving_unit_ira" mode="ro"/>
+                <table name="office_system" mode="ro"/>
+                <table name="orig_int_period_class" mode="ro"/>
+                <table name="overdue_class" mode="ro"/>
+                <table name="product_type_cluster_ead" mode="ro"/>
+                <table name="product_type_cluster_lgd" mode="ro"/>
+                <table name="r_squared" mode="ro"/>
+                <table name="r_squared_portfolio" mode="ro"/>
+                <table name="rating_approach" mode="ro"/>
+                <table name="reason_of_default" mode="ro"/>
+                <table name="reference_path" mode="ro"/>
+                <table name="region_cluster_lgd" mode="ro"/>
+                <table name="regulated_cluster_ead" mode="ro"/>
+                <table name="regulated_cluster_lgd" mode="ro"/>
+                <table name="regulated_indicator" mode="ro"/>
+                <table name="regulator" mode="ro"/>
+                <table name="related_party_cluster_lgd" mode="ro"/>
+                <table name="remain_int_period_class" mode="ro"/>
+                <table name="remain_loan_period_class" mode="ro"/>
+                <table name="remain_tenor_class" mode="ro"/>
+                <table name="review_date_class" mode="ro"/>
+                <table name="risk_rating_cluster_cost" mode="ro"/>
+                <table name="risk_rating_cluster_ead" mode="ro"/>
+                <table name="risk_rating_cluster_lgd" mode="ro"/>
+                <table name="sales_channel" mode="ro"/>
+                <table name="scs_department" mode="ro"/>
+                <table name="sec_external_rating_mapping" mode="ro"/>
+                <table name="sec_r_squared" mode="ro"/>
+                <table name="security_id_type" mode="ro"/>
+                <table name="selection" mode="ro"/>
+                <table name="selection_condition" mode="ro"/>
+                <table name="system_cluster" mode="ro"/>
+                <table name="system_exception" mode="ro"/>
+                <table name="threshold" mode="ro"/>
+                <table name="threshold_scope_procedure" mode="ro"/>
+                <table name="threshold_selection" mode="ro"/>
+                <table name="threshold_value" mode="ro"/>
+                <table name="ul_class" mode="ro"/>
+                <table name="unsecured_lgd" mode="ro"/>
+                <table name="watch_list" mode="ro"/>
+                <table name="eca_provider" mode="ro"/>
+                <table name="h_factor_decision_list" mode="ro"/>
+                <table name="ead_model" mode="ro"/>
+                <table name="lgd_model" mode="ro"/>
+                <table name="forbearance_decision_list" mode="ro"/>
+                <table name="reg_cover_type_class" mode="ro"/>
+                <table name="e_factor_decision_list" mode="ro"/>
+                <table name="g_factor_decision_list" mode="ro"/>
+                <table name="k_factor_decision_list" mode="ro"/>
+                <table name="base_entity_delivery_site" mode="ro"/>
+                <table name="report_template" mode="ro"/>
+                <table name="report_template_dimension" mode="ro"/>
+                <table name="report_template_row" mode="ro"/>
+                <table name="finrep_subordination_dec" mode="ro"/>
+                <table name="basel_portfolio_dec" mode="ro"/>
+                <table name="asset_correlation_model_dec" mode="ro"/>
+                <table name="forbearance_status" mode="ro"/>
+                <table name="foreign_exchange_rate_type" mode="ro"/>
+                <table name="risk_horizon_dec" mode="ro"/>
+                <table name="eu_equivalence_dec" mode="ro"/>
+                <table name="misob_business_line" mode="ro"/>
+                <table name="risk_weight_add_on_dec" mode="ro"/>
+                <table name="finrep_lim_type_set1" mode="ro"/>
+                <table name="finrep_lim_type_set2" mode="ro"/>
+                <table name="screen_item_mapping" mode="ro"/>
+                <table name="screen_item_ml" mode="ro"/>
+                <table name="ing_nostro_receiver" mode="ro"/>
+                <table name="us_reg_class" mode="ro"/>
+                <table name="forbearance_measure_type_dec" mode="ro"/>
+                <table name="forbearance_status_dec" mode="ro"/>
+                <table name="forbearance_outcome_dec" mode="ro"/>
+                <table name="ifrs_staging_dec" mode="ro"/>
+                <table name="pd_submodel_dec" mode="ro"/>
+                <table name="cure_rate_dec" mode="ro"/>
+                <table name="finrep_sector_dec" mode="ro"/>
+                <table name="os_amt_tp" mode="ro"/>
+                <table name="acg_cl_ifrs" mode="ro"/>
+                <table name="cvr_clss_qly" mode="ro"/>
+                <table name="cvr_clss_tp" mode="ro"/>
+                <table name="cvr_val_tp" mode="ro"/>
+                <table name="msr_cgy_ifrs" mode="ro"/>
+                <table name="rvl_ind" mode="ro"/>
+                <table name="rank" mode="ro"/>
+                <table name="prblm_loan_dept" mode="ro"/>
+                <table name="multi_ccy_ind" mode="ro"/>
+                <table name="frbc_st" mode="ro"/>
+                <table name="frbc_msr" mode="ro"/>
+                <table name="drgn_rsn" mode="ro"/>
+                <table name="ctrl_mat_ind" mode="ro"/>
+                <table name="cr_frd" mode="ro"/>
+                <table name="poci_tp" mode="ro"/>
+                <table name="brdg_loan_ind" mode="ro"/>
+                <table name="adv_ind" mode="ro"/>
+                <table name="repymt_shd_tp" mode="ro"/>
+                <table name="pdars_smdl_usd" mode="ro"/>
+                <table name="cva_capital_eligible_dec" mode="ro"/>
+                <table name="local_offic_approach_dec" mode="ro"/>
+                <table name="repayment_schedule_dec" mode="ro"/>
+                <table name="ifrs_maturity_dec" mode="ro"/>
+                <table name="unsecured_lgd_dec" mode="ro"/>
+                <table name="pit_pd_curve" mode="ro"/>
+                <table name="refinance_rate_dec" mode="ro"/>
+                <table name="reason_by_category" mode="ro"/>
+                <table name="tenor_bucket_timeband" mode="ro"/>
+                <table name="industry_nace_rev_2_0" mode="ro"/>
+                <table name="pit_cure_rate_curve" mode="ro"/>
+                <table name="pit_unsecured_lgd_curve" mode="ro"/>
+                <table name="macro_econ_scenario" mode="ro"/>
+                <table name="macro_econ_scenario_wgt" mode="ro"/>
+                <table name="pit_cover_change_curve" mode="ro"/>
+                <table name="risk_rating_loc_pd_model" mode="ro"/>
+                <table name="anacredit_instrument_type" mode="ro"/>
+                <table name="ras_bucket" mode="ro"/>
+                <table name="ras_rpt_group" mode="ro"/>
+                <table name="col_agreement_type" mode="ro"/>
+                <table name="col_balance_given_received" mode="ro"/>
+                <table name="positive_legal_opinion" mode="ro"/>
+                <table name="cg_cure_rate_in_curve" mode="ro"/>
+                <table name="cg_mf_correlation" mode="ro"/>
+                <table name="cg_mf_value_monthly" mode="ro"/>
+                <table name="cg_mf_value_quarterly" mode="ro"/>
+                <table name="cg_rating_in_curve" mode="ro"/>
+                <table name="cg_risk_r_loc_pd_mod_ifrs" mode="ro"/>
+                <table name="cg_unsec_lgd_in_curve" mode="ro"/>
+                <table name="cg_z_value" mode="ro"/>
+                <table name="ifrs_stage" mode="ro"/>
+                <table name="basel2_sa_eu_equiv_rw_dec" mode="ro"/>
+                <table name="cg_pit_cover_change_curve" mode="ro"/>
+                <table name="cg_pit_cure_rate_curve" mode="ro"/>
+                <table name="cg_pit_pd_curve" mode="ro"/>
+                <table name="cg_pit_unsec_lgd_curve" mode="ro"/>
+                <table name="ifrs9_eligible_dec" mode="ro"/>
+                <table name="finrep_cover_type" mode="ro"/>
+                <table name="finrep_purpose" mode="ro"/>
+                <table name="finrep_subordinate" mode="ro"/>
+                <table name="finrep_product_type" mode="ro"/>
+                <table name="cg_curve_cover_change" mode="ro"/>
+                <table name="cg_curve_cure_rate" mode="ro"/>
+                <table name="cg_curve_pd" mode="ro"/>
+                <table name="cg_curve_unsec_lgd" mode="ro"/>
+                <table name="cg_lgd_model_ifrs" mode="ro"/>
+                <table name="cg_os_size_customer" mode="ro"/>
+                <table name="cg_pd_model_ifrs" mode="ro"/>
+                <table name="cg_segment_details" mode="ro"/>
+                <table name="finrep_purpose_dec" mode="ro"/>
+                <table name="ifrs9_finrep_subord_dec" mode="ro"/>
+                <table name="reciprocity" mode="ro"/>
+                <table name="vxx_dispatch" mode="ro"/>
+                <table name="data_access_sets" mode="ro"/>
+                <table name="focus_area" mode="ro"/>
+                <table name="reason_of_generation" mode="ro"/>
+                <table name="event_type" mode="ro"/>
+                <table name="ifrs_stage_trigger" mode="ro"/>
+            </tables>
+        </database>
+
+    </processor>
+    <processor name="sdtransfer.cons" category="transfers">
+        <database name="sdp">
+            <tables>
+                <table name="accounting_code" mode="ro"/>
+                <table name="accounting_unit" mode="ro"/>
+                <table name="amortisation_schedule" mode="ro"/>
+                <table name="asset_manufact" mode="ro"/>
+                <table name="asset_type" mode="ro"/>
+                <table name="asset_type_securitisation" mode="ro"/>
+                <table name="basel2_approach" mode="ro"/>
+                <table name="basel2_haircut" mode="ro"/>
+                <table name="classification_mifid" mode="ro"/>
+                <table name="committed_indicator_cluster" mode="ro"/>
+                <table name="configuration" mode="ro"/>
+                <table name="country" mode="ro"/>
+                <table name="country_cluster_lgd" mode="ro"/>
+                <table name="country_correlation" mode="ro"/>
+                <table name="country_risk_factor" mode="ro"/>
+                <table name="cover_index" mode="ro"/>
+                <table name="cover_type" mode="ro"/>
+                <table name="cover_type_cluster" mode="ro"/>
+                <table name="cum_std_normal_distribution" mode="ro"/>
+                <table name="currency" mode="ro"/>
+                <table name="cust_segm_pl" mode="ro"/>
+                <table name="customer_form" mode="ro"/>
+                <table name="customer_type" mode="ro"/>
+                <table name="customer_type_cdd" mode="ro"/>
+                <table name="customer_type_industry_combi" mode="ro"/>
+                <table name="customer_type_mifid" mode="ro"/>
+                <table name="customer_type_model" mode="ro"/>
+                <table name="default_type" mode="ro"/>
+                <table name="e_factor" mode="ro"/>
+                <table name="entity" mode="ro"/>
+                <table name="exception_category" mode="ro"/>
+                <table name="exception_specification" mode="ro"/>
+                <table name="exception_type" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <table name="exposure_class" mode="ro"/>
+                <table name="exposure_class_sa" mode="ro"/>
+                <table name="facility_purpose" mode="ro"/>
+                <table name="facility_purpose_cluster" mode="ro"/>
+                <table name="facility_type" mode="ro"/>
+                <table name="g_factor" mode="ro"/>
+                <table name="income_cost_type" mode="ro"/>
+                <table name="industry_type" mode="ro"/>
+                <table name="industry_type_bik" mode="ro"/>
+                <table name="industry_type_dnb" mode="ro"/>
+                <table name="industry_type_lehman" mode="ro"/>
+                <table name="industry_type_nace" mode="ro"/>
+                <table name="industry_type_snp" mode="ro"/>
+                <table name="industry_type_tcmb" mode="ro"/>
+                <table name="joint_default_probability" mode="ro"/>
+                <table name="joint_probability" mode="ro"/>
+                <table name="k_factor" mode="ro"/>
+                <table name="legal_base_entity" mode="ro"/>
+                <table name="lev_edu" mode="ro"/>
+                <table name="lgd_ias" mode="ro"/>
+                <table name="lien_mortgage" mode="ro"/>
+                <table name="loan_status" mode="ro"/>
+                <table name="local_currency" mode="ro"/>
+                <table name="mantle_facility_type" mode="ro"/>
+                <table name="mis_raroc_lookup" mode="ro"/>
+                <table name="mis_raroc_office" mode="ro"/>
+                <table name="mis_raroc_product" mode="ro"/>
+                <table name="model" mode="ro"/>
+                <table name="object_use" mode="ro"/>
+                <table name="office" mode="ro"/>
+                <table name="office_base_entity" mode="ro"/>
+                <table name="office_cluster" mode="ro"/>
+                <table name="parameter_type" mode="ro"/>
+                <table name="product_type_cluster" mode="ro"/>
+                <table name="rating_model" mode="ro"/>
+                <table name="region" mode="ro"/>
+                <table name="reporting_entities" mode="ro"/>
+                <table name="risk_horizon" mode="ro"/>
+                <table name="risk_level_cdd" mode="ro"/>
+                <table name="risk_rating" mode="ro"/>
+                <table name="risk_rating_cluster" mode="ro"/>
+                <table name="risk_rating_country_combi" mode="ro"/>
+                <table name="risk_rating_cus_type_combi" mode="ro"/>
+                <table name="risk_rating_model" mode="ro"/>
+                <table name="risk_rating_value" mode="ro"/>
+                <table name="risk_type" mode="ro"/>
+                <table name="risk_type_cluster" mode="ro"/>
+                <table name="rule_group" mode="ro"/>
+                <table name="securitisation_legal_entity" mode="ro"/>
+                <table name="securitisation_tranche" mode="ro"/>
+                <table name="segmentation_type" mode="ro"/>
+                <table name="severity_unsecured" mode="ro"/>
+                <table name="size_default" mode="ro"/>
+                <table name="term_payment" mode="ro"/>
+                <table name="transfer_event_probability" mode="ro"/>
+                <table name="work_agree" mode="ro"/>
+                <table name="zip" mode="ro"/>
+                <table name="rating_agency" mode="ro"/>
+                <table name="credit_quality_step" mode="ro"/>
+                <table name="purpose" mode="ro"/>
+                <table name="solution" mode="ro"/>
+                <table name="configuration_set" mode="ro"/>
+                <table name="configuration_set_type" mode="ro"/>
+                <table name="agreement_type" mode="ro"/>
+                <table name="agreement_type_group" mode="ro"/>
+                <table name="applicable_party" mode="ro"/>
+                <table name="governing_law" mode="ro"/>
+                <table name="netting_pool_type" mode="ro"/>
+                <table name="workflow_step_type" mode="ro"/>
+                <table name="country_risk_category" mode="ro"/>
+                <table name="global_limit" mode="ro"/>
+                <table name="retention_type" mode="ro"/>
+                <table name="risk_degree_securitisation" mode="ro"/>
+                <table name="risk_weight_securitisation_irb" mode="ro"/>
+                <table name="risk_weight_securitisation_sa" mode="ro"/>
+                <table name="securitisation_ownership_type" mode="ro"/>
+                <table name="external_rating_scale" mode="ro"/>
+                <table name="global_parameters" mode="ro"/>
+                <table name="regulated_indicator_direct" mode="ro"/>
+                <table name="asset_correlation_model" mode="ro"/>
+                <table name="mis_code_be" mode="ro"/>
+                <table name="bus_unit_vysya" mode="ro"/>
+                <table name="loc_segm_nl" mode="ro"/>
+                <table name="loc_segm_ro" mode="ro"/>
+                <table name="loc_segm_tr" mode="ro"/>
+                <table name="exposure_class_irb_dec" mode="ro"/>
+                <table name="exposure_class_sa_dec" mode="ro"/>
+                <table name="income_matching_rule" mode="ro"/>
+                <table name="income_matching_template" mode="ro"/>
+                <table name="income_allocation_method" mode="ro"/>
+                <table name="income_type" mode="ro"/>
+                <table name="risk_weight_cva_capital" mode="ro"/>
+                <table name="pd_model_decision" mode="ro"/>
+                <table name="pd_model_parameter" mode="ro"/>
+                <table name="pd_model_quality_driver" mode="ro"/>
+                <table name="pd_model_quantity_driver" mode="ro"/>
+                <table name="pd_model_risk_driver" mode="ro"/>
+                <table name="pd_model_risk_driver_wght" mode="ro"/>
+                <table name="liquidity_decision_list" mode="ro"/>
+                <table name="ccp_decision_list" mode="ro"/>
+                <table name="clearinghouse" mode="ro"/>
+                <table name="la_agreement_product_type" mode="ro"/>
+                <table name="la_condition" mode="ro"/>
+                <table name="la_counterparty_branch" mode="ro"/>
+                <table name="la_ing_legal_entity_branch" mode="ro"/>
+                <table name="la_netting_branch_comb" mode="ro"/>
+                <table name="la_netting_pool" mode="ro"/>
+                <table name="la_netting_product" mode="ro"/>
+                <table name="la_sub_agreement" mode="ro"/>
+                <table name="la_sub_agreement_condition" mode="ro"/>
+                <table name="la_agreement" mode="ro"/>
+                <table name="cover_cap" mode="ro"/>
+                <table name="currency_mismatch_haircut" mode="ro"/>
+                <table name="maturity_mismatch_haircut" mode="ro"/>
+                <table name="corep_automated_reporting" mode="ro"/>
+                <table name="increase_correlation_ind" mode="ro"/>
+                <table name="risk_weight_bucket_sa" mode="ro"/>
+                <table name="corep_counterparty_cluster" mode="ro"/>
+                <table name="exposure_base" mode="ro"/>
+                <table name="finrep_sector" mode="ro"/>
+                <table name="le_exposure_type" mode="ro"/>
+                <table name="reporting_entity_le_exem" mode="ro"/>
+                <table name="zero_rrw_sovereign_dec" mode="ro"/>
+                <table name="maturity_dec" mode="ro"/>
+                <table name="fx_rate" mode="ro"/>
+                <table name="expected_file" mode="ro"/>
+                <table name="field_check" mode="ro"/>
+                <table name="field_related_activity" mode="ro"/>
+                <table name="system_specific_procedure" mode="ro"/>
+                <table name="weighting" mode="ro"/>
+                <table name="defaulting" mode="ro"/>
+                <table name="one_bank_office" mode="ro"/>
+                <table name="functional_parameter" mode="ro"/>
+                <table name="alco_code" mode="ro"/>
+                <table name="control_parameter" mode="ro"/>
+                <table name="technical_parameter" mode="ro"/>
+                <table name="emir_classification" mode="ro"/>
+                <table name="cover_type_cluster" mode="ro"/>
+                <table name="committed_indicator" mode="ro"/>
+                <table name="general_indicator" mode="ro"/>
+                <table name="jar_version" mode="ro"/>
+                <table name="leverage_ratio_exposure_ccf" mode="ro"/>
+                <table name="lgd_boundaries_dec" mode="ro"/>
+                <table name="lr_risk_weight_bucket" mode="ro"/>
+                <table name="securitisation_investor" mode="ro"/>
+                <table name="securitisation_sponsor" mode="ro"/>
+                <table name="sec_accounting_treatment" mode="ro"/>
+                <table name="sec_basel_approach" mode="ro"/>
+                <table name="sec_exposure_volume" mode="ro"/>
+                <table name="sec_solvency_treatment" mode="ro"/>
+                <table name="sa_riskweight" mode="ro"/>
+                <table name="sa_riskweight_condition_dec" mode="ro"/>
+                <table name="industry_type_nace_2_0" mode="ro"/>
+                <table name="dependent_mapping" mode="ro"/>
+                <table name="sme_supporting_factor_dec" mode="ro"/>
+                <table name="acc_unit_default_decision_tree" mode="ro"/>
+                <table name="activity" mode="ro"/>
+                <table name="age_class" mode="ro"/>
+                <table name="amortisation_repayment" mode="ro"/>
+                <table name="amount_type" mode="ro"/>
+                <table name="asset_valuation_curve" mode="ro"/>
+                <table name="basel2_cover_info" mode="ro"/>
+                <table name="basel2_portfolio" mode="ro"/>
+                <table name="basel2_short_term_exp" mode="ro"/>
+                <table name="booking_office_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_cost" mode="ro"/>
+                <table name="committed_ind_cluster_ead" mode="ro"/>
+                <table name="committed_ind_cluster_lgd" mode="ro"/>
+                <table name="condition_template_operator" mode="ro"/>
+                <table name="cost_model" mode="ro"/>
+                <table name="cost_model_decision_tree" mode="ro"/>
+                <table name="cost_model_type" mode="ro"/>
+                <table name="cost_parameters" mode="ro"/>
+                <table name="cost_type" mode="ro"/>
+                <table name="country_cluster" mode="ro"/>
+                <table name="country_cluster_cost" mode="ro"/>
+                <table name="country_cluster_ead" mode="ro"/>
+                <table name="country_factor" mode="ro"/>
+                <table name="country_rr_constant" mode="ro"/>
+                <table name="coupon_type" mode="ro"/>
+                <table name="cover_status" mode="ro"/>
+                <table name="cover_type_cluster_lgd" mode="ro"/>
+                <table name="credit_conv_factor" mode="ro"/>
+                <table name="credit_process" mode="ro"/>
+                <table name="credit_process_cluster_cost" mode="ro"/>
+                <table name="cure_rate" mode="ro"/>
+                <table name="currency_cluster" mode="ro"/>
+                <table name="currency_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster" mode="ro"/>
+                <table name="customer_segment_cluster_cost" mode="ro"/>
+                <table name="customer_segment_cluster_ead" mode="ro"/>
+                <table name="customer_segment_cluster_lgd" mode="ro"/>
+                <table name="customer_type_cluster" mode="ro"/>
+                <table name="customer_type_cluster_cost" mode="ro"/>
+                <table name="customer_type_cluster_ead" mode="ro"/>
+                <table name="customer_type_cluster_lgd" mode="ro"/>
+                <table name="daycount" mode="ro"/>
+                <table name="dependent_defaulting" mode="ro"/>
+                <table name="devaluation_factor" mode="ro"/>
+                <table name="direct_costs" mode="ro"/>
+                <table name="discount_factor_cover" mode="ro"/>
+                <table name="discount_factor_unsecured" mode="ro"/>
+                <table name="e_factor_basel_2" mode="ro"/>
+                <table name="e_factor_ias" mode="ro"/>
+                <table name="e_factor_ing" mode="ro"/>
+                <table name="ead_class" mode="ro"/>
+                <table name="ead_constant" mode="ro"/>
+                <table name="ec_class" mode="ro"/>
+                <table name="eca_cover_provider" mode="ro"/>
+                <table name="economic_capital_parameter" mode="ro"/>
+                <table name="el_class" mode="ro"/>
+                <table name="eligible_cds_office" mode="ro"/>
+                <table name="exception_condition" mode="ro"/>
+                <table name="exception_condition_template" mode="ro"/>
+                <table name="exception_field_definition" mode="ro"/>
+                <table name="exception_reference_path" mode="ro"/>
+                <table name="exception_table_definition" mode="ro"/>
+                <table name="exception_table_join" mode="ro"/>
+                <table name="exchange" mode="ro"/>
+                <table name="existing_limit_cluster_ead" mode="ro"/>
+                <table name="existing_limit_cluster_lgd" mode="ro"/>
+                <table name="exp_procedure_parameter_values" mode="ro"/>
+                <table name="exposure_class_sa_cov_dec" mode="ro"/>
+                <table name="external_rating_agency" mode="ro"/>
+                <table name="external_rating_type" mode="ro"/>
+                <table name="facility_purpose_cluster_cost" mode="ro"/>
+                <table name="facility_purpose_cluster_ead" mode="ro"/>
+                <table name="facility_purpose_cluster_lgd" mode="ro"/>
+                <table name="g_factor_basel_2" mode="ro"/>
+                <table name="g_factor_ias" mode="ro"/>
+                <table name="g_factor_ing" mode="ro"/>
+                <table name="h_factor" mode="ro"/>
+                <table name="h_factor_le" mode="ro"/>
+                <table name="income_base" mode="ro"/>
+                <table name="income_class" mode="ro"/>
+                <table name="indirect_costs" mode="ro"/>
+                <table name="industry_factor" mode="ro"/>
+                <table name="industry_rr_constant" mode="ro"/>
+                <table name="industry_type_cluster" mode="ro"/>
+                <table name="industry_type_cluster_cost" mode="ro"/>
+                <table name="ing_legal_entity_own_funds" mode="ro"/>
+                <table name="initiating_office_cluster_cost" mode="ro"/>
+                <table name="institution_type" mode="ro"/>
+                <table name="instrument_price_type" mode="ro"/>
+                <table name="instrument_type" mode="ro"/>
+                <table name="interest_base" mode="ro"/>
+                <table name="interest_rate" mode="ro"/>
+                <table name="k_factor_basel_2" mode="ro"/>
+                <table name="k_factor_ias" mode="ro"/>
+                <table name="k_factor_ing" mode="ro"/>
+                <table name="kmv_category" mode="ro"/>
+                <table name="legal_entity_cluster_cost" mode="ro"/>
+                <table name="lgd_class" mode="ro"/>
+                <table name="limit_age_class" mode="ro"/>
+                <table name="limit_type_cluster_cost" mode="ro"/>
+                <table name="listing_price_type" mode="ro"/>
+                <table name="loan_to_income_class" mode="ro"/>
+                <table name="ltv_class" mode="ro"/>
+                <table name="mapping" mode="ro"/>
+                <table name="marital_status" mode="ro"/>
+                <table name="market_sector" mode="ro"/>
+                <table name="maturity_age_class" mode="ro"/>
+                <table name="model_decision_tree" mode="ro"/>
+                <table name="negative_pledge_cluster_lgd" mode="ro"/>
+                <table name="netting_type" mode="ro"/>
+                <table name="nhg_cluster_lgd" mode="ro"/>
+                <table name="office_cluster_ead" mode="ro"/>
+                <table name="office_cluster_lgd" mode="ro"/>
+                <table name="office_gtee_giving_unit_ira" mode="ro"/>
+                <table name="office_system" mode="ro"/>
+                <table name="orig_int_period_class" mode="ro"/>
+                <table name="overdue_class" mode="ro"/>
+                <table name="periodic_data_set" mode="ro"/>
+                <table name="product_type_cluster_ead" mode="ro"/>
+                <table name="product_type_cluster_lgd" mode="ro"/>
+                <table name="r_squared" mode="ro"/>
+                <table name="r_squared_portfolio" mode="ro"/>
+                <table name="rating_approach" mode="ro"/>
+                <table name="reason_of_default" mode="ro"/>
+                <table name="reference_path" mode="ro"/>
+                <table name="region_cluster_lgd" mode="ro"/>
+                <table name="regulated_cluster_ead" mode="ro"/>
+                <table name="regulated_cluster_lgd" mode="ro"/>
+                <table name="regulated_indicator" mode="ro"/>
+                <table name="regulator" mode="ro"/>
+                <table name="related_party_cluster_lgd" mode="ro"/>
+                <table name="remain_int_period_class" mode="ro"/>
+                <table name="remain_loan_period_class" mode="ro"/>
+                <table name="remain_tenor_class" mode="ro"/>
+                <table name="review_date_class" mode="ro"/>
+                <table name="risk_rating_cluster_cost" mode="ro"/>
+                <table name="risk_rating_cluster_ead" mode="ro"/>
+                <table name="risk_rating_cluster_lgd" mode="ro"/>
+                <table name="sales_channel" mode="ro"/>
+                <table name="scs_department" mode="ro"/>
+                <table name="sec_external_rating_mapping" mode="ro"/>
+                <table name="sec_r_squared" mode="ro"/>
+                <table name="security_id_type" mode="ro"/>
+                <table name="selection" mode="ro"/>
+                <table name="selection_condition" mode="ro"/>
+                <table name="swap_ranking_type" mode="ro"/>
+                <table name="swap_restructuring_type" mode="ro"/>
+                <table name="system_cluster" mode="ro"/>
+                <table name="system_exception" mode="ro"/>
+                <table name="tenor_type" mode="ro"/>
+                <table name="threshold" mode="ro"/>
+                <table name="threshold_scope_procedure" mode="ro"/>
+                <table name="threshold_selection" mode="ro"/>
+                <table name="threshold_value" mode="ro"/>
+                <table name="time_frequency" mode="ro"/>
+                <table name="ul_class" mode="ro"/>
+                <table name="unsecured_lgd" mode="ro"/>
+                <table name="watch_list" mode="ro"/>
+                <table name="eca_provider" mode="ro"/>
+                <table name="h_factor_decision_list" mode="ro"/>
+                <table name="ead_model" mode="ro"/>
+                <table name="lgd_model" mode="ro"/>
+                <table name="forbearance_decision_list" mode="ro"/>
+                <table name="reg_cover_type_class" mode="ro"/>
+                <table name="e_factor_decision_list" mode="ro"/>
+                <table name="g_factor_decision_list" mode="ro"/>
+                <table name="k_factor_decision_list" mode="ro"/>
+                <table name="base_entity_delivery_site" mode="ro"/>
+                <table name="retail_cross_cover_dec" mode="ro"/>
+                <table name="report_template" mode="ro"/>
+                <table name="report_template_dimension" mode="ro"/>
+                <table name="report_template_row" mode="ro"/>
+                <table name="finrep_subordination_dec" mode="ro"/>
+                <table name="basel_portfolio_dec" mode="ro"/>
+                <table name="asset_correlation_model_dec" mode="ro"/>
+                <table name="forbearance_status" mode="ro"/>
+                <table name="foreign_exchange_rate_type" mode="ro"/>
+                <table name="risk_horizon_dec" mode="ro"/>
+                <table name="instrument_group" mode="ro"/>
+                <table name="eu_equivalence_dec" mode="ro"/>
+                <table name="misob_business_line" mode="ro"/>
+                <table name="risk_weight_add_on_dec" mode="ro"/>
+                <table name="finrep_lim_type_set1" mode="ro"/>
+                <table name="finrep_lim_type_set2" mode="ro"/>
+                <table name="v_source_system_consumer" mode="ro"/>
+                <table name="v_cons_export_grid_customer" mode="ro"/>
+                <table name="v_cons_exp_grid_cus_ext_rating" mode="ro"/>
+                <table name="ing_nostro_receiver" mode="ro"/>
+                <table name="forbearance_measure_type_dec" mode="ro"/>
+                <table name="forbearance_status_dec" mode="ro"/>
+                <table name="forbearance_outcome_dec" mode="ro"/>
+                <table name="ifrs_staging_dec" mode="ro"/>
+                <table name="pd_submodel_dec" mode="ro"/>
+                <table name="cure_rate_dec" mode="ro"/>
+                <table name="finrep_sector_dec" mode="ro"/>
+                <table name="os_amt_tp" mode="ro"/>
+                <table name="acg_cl_ifrs" mode="ro"/>
+                <table name="cvr_clss_qly" mode="ro"/>
+                <table name="cvr_clss_tp" mode="ro"/>
+                <table name="cvr_val_tp" mode="ro"/>
+                <table name="msr_cgy_ifrs" mode="ro"/>
+                <table name="rvl_ind" mode="ro"/>
+                <table name="rank" mode="ro"/>
+                <table name="prblm_loan_dept" mode="ro"/>
+                <table name="multi_ccy_ind" mode="ro"/>
+                <table name="frbc_st" mode="ro"/>
+                <table name="frbc_msr" mode="ro"/>
+                <table name="drgn_rsn" mode="ro"/>
+                <table name="ctrl_mat_ind" mode="ro"/>
+                <table name="cr_frd" mode="ro"/>
+                <table name="poci_tp" mode="ro"/>
+                <table name="brdg_loan_ind" mode="ro"/>
+                <table name="adv_ind" mode="ro"/>
+                <table name="repymt_shd_tp" mode="ro"/>
+                <table name="pdars_smdl_usd" mode="ro"/>
+                <table name="cva_capital_eligible_dec" mode="ro"/>
+                <table name="local_offic_approach_dec" mode="ro"/>
+                <table name="repayment_schedule_dec" mode="ro"/>
+                <table name="ifrs_maturity_dec" mode="ro"/>
+                <table name="unsecured_lgd_dec" mode="ro"/>
+                <table name="pit_pd_curve" mode="ro"/>
+                <table name="refinance_rate_dec" mode="ro"/>
+                <table name="reason_by_category" mode="ro"/>
+                <table name="tenor_bucket_timeband" mode="ro"/>
+                <table name="industry_nace_rev_2_0" mode="ro"/>
+                <table name="pit_cure_rate_curve" mode="ro"/>
+                <table name="pit_unsecured_lgd_curve" mode="ro"/>
+                <table name="macro_econ_scenario" mode="ro"/>
+                <table name="macro_econ_scenario_wgt" mode="ro"/>
+                <table name="pit_cover_change_curve" mode="ro"/>
+                <table name="risk_rating_loc_pd_model" mode="ro"/>
+                <table name="anacredit_instrument_type" mode="ro"/>
+                <table name="ras_bucket" mode="ro"/>
+                <table name="ras_rpt_group" mode="ro"/>
+                <table name="col_agreement_type" mode="ro"/>
+                <table name="col_balance_given_received" mode="ro"/>
+                <table name="positive_legal_opinion" mode="ro"/>
+                <table name="cg_cure_rate_in_curve" mode="ro"/>
+                <table name="cg_mf_correlation" mode="ro"/>
+                <table name="cg_mf_value_monthly" mode="ro"/>
+                <table name="cg_mf_value_quarterly" mode="ro"/>
+                <table name="cg_rating_in_curve" mode="ro"/>
+                <table name="cg_risk_r_loc_pd_mod_ifrs" mode="ro"/>
+                <table name="cg_unsec_lgd_in_curve" mode="ro"/>
+                <table name="cg_z_value" mode="ro"/>
+                <table name="ifrs_stage" mode="ro"/>
+                <table name="basel2_sa_eu_equiv_rw_dec" mode="ro"/>
+                <table name="cg_pit_cover_change_curve" mode="ro"/>
+                <table name="cg_pit_cure_rate_curve" mode="ro"/>
+                <table name="cg_pit_pd_curve" mode="ro"/>
+                <table name="cg_pit_unsec_lgd_curve" mode="ro"/>
+                <table name="ifrs9_eligible_dec" mode="ro"/>
+                <table name="finrep_cover_type" mode="ro"/>
+                <table name="finrep_purpose" mode="ro"/>
+                <table name="finrep_subordinate" mode="ro"/>
+                <table name="finrep_product_type" mode="ro"/>
+                <table name="cg_curve_cover_change" mode="ro"/>
+                <table name="cg_curve_cure_rate" mode="ro"/>
+                <table name="cg_curve_pd" mode="ro"/>
+                <table name="cg_curve_unsec_lgd" mode="ro"/>
+                <table name="cg_lgd_model_ifrs" mode="ro"/>
+                <table name="cg_os_size_customer" mode="ro"/>
+                <table name="cg_pd_model_ifrs" mode="ro"/>
+                <table name="cg_segment_details" mode="ro"/>
+                <table name="finrep_purpose_dec" mode="ro"/>
+                <table name="ifrs9_finrep_subord_dec" mode="ro"/>
+                <table name="reciprocity" mode="ro"/>
+                <table name="vxx_dispatch" mode="ro"/>
+                <table name="data_access_sets" mode="ro"/>
+                <table name="focus_area" mode="ro"/>
+                <table name="reason_of_generation" mode="ro"/>
+                <table name="event_type" mode="ro"/>
+                <table name="ifrs_stage_trigger" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <!-- todo gmdrequesttransfer -->
+    <processor name="coreptransfer" category="transfers">
+        <database name="buss">
+            <calls>
+                <call name="process_import_corep_recap"/>
+                <call name="process_import_corep_post"/>
+            </calls>
+            <tables>
+                <table name="dmi_corep_recap_import" mode="rw"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="process_export_corep_pre"/>
+                <call name="process_export_corep_post"/>
+            </calls>
+            <tables>
+                <table name="v_dmr_corep_recap_export" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="misraroctransfer" category="transfers">
+        <database name="buss">
+            <calls>
+                <call name="process_import_misraroc"/>
+                <call name="process_import_misraroc_post"/>
+            </calls>
+            <tables>
+                <table name="exp_misraroc_import" mode="rw"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="process_export_misraroc_pre"/>
+                <call name="process_export_misraroc_post"/>
+            </calls>
+            <tables>
+                <table name="vw_exp_misraroc" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="legalentityxfer" category="transfers">
+        <database name="buss">
+            <tables>
+                <table name="v_export_dmi_ing_legal_entity" mode="ro"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="transfer_table"/>
+            </calls>
+            <tables>
+                <table name="ing_legal_entity_import" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="retainedpositions" category="transfers">
+        <database name="buss">
+            <calls>
+                <call name="import_vbr_aggr_con"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="cleanupconnections.buss" category="tools">
+        <database name="buss">
+            <calls>
+                <call name="cleanup_connections_cron"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="cleanupconnections.cons" category="tools">
+        <database name="cons">
+            <calls>
+                <call name="cleanup_connections_cron"/>
+            </calls>
+        </database>
+    </processor>
+
+    <processor name="rtf.buss" category="tools">
+        <database name="buss">
+            <calls>
+                <call name="rtf_testexecution"/>
+            </calls>
+            <tables name="configuration">
+                <table name="rtf_TableConfig" mode="ro"/>
+                <table name="rtf_testPortfolio" mode="ro"/>
+                <table name="rtf_testResult" mode="ro"/>
+                <table name="rtf_testRun" mode="ro"/>
+                <table name="rtf_testStep" mode="ro"/>
+            </tables>
+            <tables>
+                <table name="dmi_corep_recap_aggr_main" mode="ro"/>
+                <table name="dmi_corep_recap_measure" mode="ro"/>
+                <table name="dmi_country_risk_measure_og" mode="ro"/>
+                <table name="dmi_credit_risk_measure_og" mode="ro"/>
+                <table name="dmi_exception" mode="ro"/>
+                <table name="dmi_facility" mode="ro"/>
+                <table name="dmi_facility_run_off_measure" mode="ro"/>
+                <table name="dmi_large_exposure_measure" mode="ro"/>
+                <table name="dmi_outstanding" mode="ro"/>
+                <table name="dmi_provision_measure" mode="ro"/>
+                <table name="dmi_recap_measure" mode="ro"/>
+                <table name="dmi_related_borrower" mode="ro"/>
+                <table name="dmi_threshold_measure" mode="ro"/>
+                <table name="dwh_alloc_limit_time_band_fact" mode="ro"/>
+                <table name="dwh_blraroc_outstanding_group" mode="ro"/>
+                <table name="dwh_cover" mode="ro"/>
+                <table name="dwh_cover_amount_org" mode="ro"/>
+                <table name="dwh_cover_fact" mode="ro"/>
+                <table name="dwh_csa" mode="ro"/>
+                <table name="dwh_custom_field" mode="ro"/>
+                <table name="dwh_customer_date" mode="ro"/>
+                <table name="dwh_customer_forbearance" mode="ro"/>
+                <table name="dwh_cva_capital_allocated" mode="ro"/>
+                <table name="dwh_exception" mode="ro"/>
+                <table name="dwh_exchange_rate" mode="ro"/>
+                <table name="dwh_facility" mode="ro"/>
+                <table name="dwh_facility_amount_org" mode="ro"/>
+                <table name="dwh_facility_fact" mode="ro"/>
+                <table name="dwh_facility_run_off" mode="ro"/>
+                <table name="dwh_facility_time_band_fact" mode="ro"/>
+                <table name="dwh_grid_customer_risk_rating" mode="ro"/>
+                <table name="dwh_ifrs_multiyear" mode="ro"/>
+                <table name="dwh_ifrs_outstanding_group" mode="ro"/>
+                <table name="dwh_ifrs_outstanding_reduction" mode="ro"/>
+                <table name="dwh_incap_outstanding_group" mode="ro"/>
+                <table name="dwh_liquidity_risk" mode="ro"/>
+                <table name="dwh_llp_outstanding_group" mode="ro"/>
+                <table name="dwh_outstanding" mode="ro"/>
+                <table name="dwh_outstanding_amount_org" mode="ro"/>
+                <table name="dwh_outstanding_fact" mode="ro"/>
+                <table name="dwh_outstanding_group" mode="ro"/>
+                <table name="dwh_outstanding_group_run_off" mode="ro"/>
+                <table name="dwh_outstanding_run_off" mode="ro"/>
+                <table name="dwh_outstanding_time_band_fact" mode="ro"/>
+                <table name="dwh_periodic_calc_facility_data" mode="ro"/>
+                <table name="dwh_periodic_raw_facility_data" mode="ro"/>
+                <table name="dwh_provision" mode="ro"/>
+                <table name="dwh_provision_amount" mode="ro"/>
+                <table name="dwh_raroc_outstanding_group" mode="ro"/>
+                <table name="dwh_related_borrower" mode="ro"/>
+                <table name="dwh_related_borrower_fact" mode="ro"/>
+                <table name="dwh_related_cover_prov" mode="ro"/>
+                <table name="dwh_repayment_schedule" mode="ro"/>
+                <table name="dwh_securitised_facility" mode="ro"/>
+                <table name="dwh_specific_provision" mode="ro"/>
+                <table name="dwh_threshold" mode="ro"/>
+                <table name="dwh_threshold_details" mode="ro"/>
+                <table name="dwh_threshold_exception" mode="ro"/>
+                <table name="dwh_threshold_security_details" mode="ro"/>
+                <table name="dwh_vbr_basel2" mode="ro"/>
+                <table name="dwh_vbr_basel2_irb_appr" mode="ro"/>
+                <table name="dwh_vbr_basel2_sa_appr" mode="ro"/>
+                <table name="dwh_vre_aggregated_exposure" mode="ro"/>
+                <table name="dwh_vre_country_risk" mode="ro"/>
+                <table name="dwh_vre_cover_ifrs" mode="ro"/>
+                <table name="dwh_vre_cover_ifrs_multiyear" mode="ro"/>
+                <table name="dwh_vre_cover_incap" mode="ro"/>
+                <table name="dwh_vre_cover_llp" mode="ro"/>
+                <table name="dwh_vre_cover_recap" mode="ro"/>
+                <table name="dwh_vre_error" mode="ro"/>
+                <table name="dwh_vre_facility_ltv" mode="ro"/>
+                <table name="dwh_vre_large_exposure" mode="ro"/>
+                <table name="dwh_vre_le_2013" mode="ro"/>
+                <table name="integrity_check_monitor" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="rtf.cons" category="tools">
+        <database name="cons">
+            <calls>
+                <call name="rtf_testexecution"/>
+            </calls>
+            <tables name="configuration">
+                <table name="rtf_TableConfig" mode="ro"/>
+                <table name="rtf_testPortfolio" mode="ro"/>
+                <table name="rtf_testResult" mode="ro"/>
+                <table name="rtf_testRun" mode="ro"/>
+                <table name="rtf_testStep" mode="ro"/>
+            </tables>
+            <tables>
+                <table name="cover" mode="ro"/>
+                <table name="dmr_country_risk_measure_og" mode="ro"/>
+                <table name="dmr_country_risk_recap_measure" mode="ro"/>
+                <table name="dmr_cover_measure" mode="ro"/>
+                <table name="dmr_provision_measure" mode="ro"/>
+                <table name="dmr_rb_aggr_income" mode="ro"/>
+                <table name="dmr_rb_measure" mode="ro"/>
+                <table name="dmr_recap_measure" mode="ro"/>
+                <table name="dwh_exception" mode="ro"/>
+                <table name="dwh_ifrs_multiyear" mode="ro"/>
+                <table name="dwh_ifrs_outstanding_reduction" mode="ro"/>
+                <table name="dwh_ifrs_related_borrower" mode="ro"/>
+                <table name="dwh_incap_related_borrower" mode="ro"/>
+                <table name="dwh_llp_related_borrower" mode="ro"/>
+                <table name="dwh_raroc_related_borrower" mode="ro"/>
+                <table name="dwh_vbr_basel2" mode="ro"/>
+                <table name="dwh_vbr_basel2_irb_appr" mode="ro"/>
+                <table name="dwh_vbr_basel2_sa_appr" mode="ro"/>
+                <table name="dwh_vre_country_risk" mode="ro"/>
+                <table name="dwh_vre_cover_ifrs" mode="ro"/>
+                <table name="dwh_vre_cover_ifrs_multiyear" mode="ro"/>
+                <table name="dwh_vre_cover_incap" mode="ro"/>
+                <table name="dwh_vre_cover_llp" mode="ro"/>
+                <table name="dwh_vre_cover_recap" mode="ro"/>
+                <table name="dwh_vre_customer_pd" mode="ro"/>
+                <table name="dwh_vre_facility" mode="ro"/>
+                <table name="dwh_vre_facility_ltv" mode="ro"/>
+                <table name="facility" mode="ro"/>
+                <table name="grs_repaym" mode="ro"/>
+                <table name="related_borrower" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="iqddl.buss" category="tools">
+        <database name="buss">
+            <calls>
+                <call name="vsp_iqtableddl"/>
+                <call name="vsp_iqviewddl"/>
+            </calls>
+            <tables name="configuration">
+                <table name="systrigger"/>
+                <table name="sysprocedure"/>
+                <table name="sysobjects"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="iqddl.cons" category="tools">
+        <database name="cons">
+            <calls>
+                <call name="vsp_iqtableddl"/>
+                <call name="vsp_iqviewddl"/>
+            </calls>
+            <tables name="configuration">
+                <table name="systrigger"/>
+                <table name="sysprocedure"/>
+                <table name="sysobjects"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="historycleanup.buss" category="tools">
+        <database name="buss">
+            <tables name="configuration">
+                <table name="dmi_reporting_period"/>
+                <table name="dmi_recap_reporting_period"/>
+                <table name="dmi_le_reporting_period"/>
+                <table name="dmi_threshold_reporting_period"/>
+                <table name="dmi_action"/>
+                <table name="hcu_tables_to_clean"/>
+            </tables>
+            <tables name="operational">
+                <table name="dmi_time_period" mode="rw"/>
+                <table name="dmi_recap_measure" mode="rw"/>
+                <table name="dwh_incap_outstanding_group" mode="rw"/>
+                <table name="dwh_raroc_outstanding_group" mode="rw"/>
+                <table name="dwh_vbr_basel2" mode="rw"/>
+                <table name="dwh_vbr_basel2_irb_appr" mode="rw"/>
+                <table name="dwh_vbr_basel2_sa_appr" mode="rw"/>
+                <table name="dwh_ifrs_multiyear" mode="rw"/>
+                <table name="dwh_ifrs_outstanding_group" mode="rw"/>
+                <table name="dwh_ifrs_outstanding_reduction" mode="rw"/>
+                <table name="dwh_vre_cover_ifrs" mode="rw"/>
+                <table name="dwh_vre_cover_ifrs_multiyear" mode="rw"/>
+                <table name="dmi_allocated_cover" mode="rw"/>
+                <table name="dmi_country_exposure" mode="rw"/>
+                <table name="dmi_country_risk_measure" mode="rw"/>
+                <table name="dmi_country_risk_measure_og" mode="rw"/>
+                <table name="dmi_cover_measure" mode="rw"/>
+                <table name="dmi_credit_risk_measure_og" mode="rw"/>
+                <table name="dmi_endmonth_credit_risk_measure_og" mode="rw"/>
+                <table name="dmi_facility" mode="rw"/>
+                <table name="dmi_facility_run_off" mode="rw"/>
+                <table name="dmi_intermediate_facility" mode="rw"/>
+                <table name="dmi_outstanding" mode="rw"/>
+                <table name="dmi_related_borrower" mode="rw"/>
+                <table name="d_dwh_cover_run_off" mode="rw"/>
+                <table name="dwh_facility_run_off" mode="rw"/>
+                <table name="dwh_outstanding_group_run_off" mode="rw"/>
+                <table name="dwh_outstanding_run_off" mode="rw"/>
+                <table name="dwh_related_borrower_run_off" mode="rw"/>
+                <table name="d_dwh_country_risk" mode="rw"/>
+                <table name="d_dwh_country_risk_fact" mode="rw"/>
+                <table name="d_dwh_crr_country_risk" mode="rw"/>
+                <table name="d_dwh_crr_country_risk_fact" mode="rw"/>
+                <table name="d_dwh_elec_cover" mode="rw"/>
+                <table name="d_dwh_elec_cover_appr" mode="rw"/>
+                <table name="d_dwh_elec_outstanding" mode="rw"/>
+                <table name="d_dwh_elec_outstanding_group" mode="rw"/>
+                <table name="d_dwh_elec_outstanding_group_app" mode="rw"/>
+                <table name="d_dwh_elec_related_borrower" mode="rw"/>
+                <table name="d_dwh_elec_related_borrower_appr" mode="rw"/>
+                <table name="d_dwh_income_cost" mode="rw"/>
+                <table name="d_dwh_income_cost_amount" mode="rw"/>
+                <table name="dwh_alloc_limit_time_band_fact" mode="rw"/>
+                <table name="dwh_cover" mode="rw"/>
+                <table name="dwh_cover_amount_org" mode="rw"/>
+                <table name="dwh_cover_cds" mode="rw"/>
+                <table name="dwh_cover_fact" mode="rw"/>
+                <table name="dwh_exception" mode="rw"/>
+                <table name="dwh_facility" mode="rw"/>
+                <table name="dwh_facility_amount_org" mode="rw"/>
+                <table name="dwh_facility_fact" mode="rw"/>
+                <table name="dwh_facility_time_band_fact" mode="rw"/>
+                <table name="dwh_outstanding" mode="rw"/>
+                <table name="dwh_outstanding_amount_org" mode="rw"/>
+                <table name="dwh_outstanding_fact" mode="rw"/>
+                <table name="dwh_outstanding_group" mode="rw"/>
+                <table name="dwh_outstanding_time_band_fact" mode="rw"/>
+                <table name="dwh_periodic_calc_facility_data" mode="rw"/>
+                <table name="dwh_provision" mode="rw"/>
+                <table name="dwh_provision_amount" mode="rw"/>
+                <table name="dwh_related_borrower" mode="rw"/>
+                <table name="dwh_related_borrower_fact" mode="rw"/>
+                <table name="dwh_related_cover_prov" mode="rw"/>
+                <table name="dwh_repayment_schedule" mode="rw"/>
+                <table name="d_dwh_cfb_facility_appr" mode="rw"/>
+                <table name="d_dwh_cfb_outstanding_group_appr" mode="rw"/>
+                <table name="dwh_cfb_rel_borrower_appr" mode="rw"/>
+                <table name="dmi_corep_recap_aggr_main" mode="rw"/>
+                <table name="dmi_corep_recap_measure" mode="rw"/>
+                <table name="dmi_country_risk_recap_measure" mode="rw"/>
+                <table name="dmi_endmonth_facility" mode="rw"/>
+                <table name="dmi_endmonth_intermediate_facility" mode="rw"/>
+                <table name="dmi_endmonth_outstanding" mode="rw"/>
+                <table name="dmi_endmonth_related_borrower" mode="rw"/>
+                <table name="dmi_exception" mode="rw"/>
+                <table name="dmi_facility_run_off_measure" mode="rw"/>
+                <table name="dmi_large_exposure_measure" mode="rw"/>
+                <table name="dmi_provision_measure" mode="rw"/>
+                <table name="dmi_raroc_facility_measure" mode="rw"/>
+                <table name="dwh_cva_capital_allocated" mode="rw"/>
+                <table name="dwh_facility_periodic_data" mode="rw"/>
+                <table name="dwh_llp_outstanding_group" mode="rw"/>
+                <table name="dwh_vbr_basel2_result" mode="rw"/>
+                <table name="dwh_vre_aggregated_exposure" mode="rw"/>
+                <table name="dwh_vre_country_risk" mode="rw"/>
+                <table name="dwh_vre_cover_incap" mode="rw"/>
+                <table name="dwh_vre_cover_llp" mode="rw"/>
+                <table name="dwh_vre_cover_recap" mode="rw"/>
+                <table name="dwh_vre_facility_ltv" mode="rw"/>
+                <table name="dwh_vre_large_exposure" mode="rw"/>
+                <table name="dmi_le_reporting_period" mode="rw"/>
+                <table name="dmi_recap_reporting_period" mode="rw"/>
+                <table name="dmi_reporting_period" mode="rw"/>
+            </tables>
+            <calls>
+                <call name="hcu_clean_up_table"/>
+                <call name="hcu_update_sync_key"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="historycleanup.cons" category="tools">
+        <database name="cons">
+            <tables name="configuration">
+                <table name="dmr_reporting_period"/>
+                <table name="dmr_action"/>
+                <table name="hcu_tables_to_clean"/>
+            </tables>
+            <tables name="operational">
+                <table name="cover" mode="rw"/>
+                <table name="customer" mode="rw"/>
+                <table name="dmr_corep_recap_export" mode="rw"/>
+                <table name="dmr_corep_recap_measure" mode="rw"/>
+                <table name="dmr_country_exposure" mode="rw"/>
+                <table name="dmr_country_risk_measure_og" mode="rw"/>
+                <table name="dmr_country_risk_recap_aggr" mode="rw"/>
+                <table name="dmr_country_risk_recap_measure" mode="rw"/>
+                <table name="dmr_cover_aggr" mode="rw"/>
+                <table name="dmr_cover_measure" mode="rw"/>
+                <table name="dmr_exception_aggr" mode="rw"/>
+                <table name="dmr_exception_maximum" mode="rw"/>
+                <table name="dmr_exception_sample" mode="rw"/>
+                <table name="dmr_integrity_check_monitor" mode="rw"/>
+                <table name="dmr_main_exception_aggr" mode="rw"/>
+                <table name="dmr_provision_measure" mode="rw"/>
+                <table name="dmr_provision_system" mode="rw"/>
+                <table name="dmr_rb_aggr_age" mode="rw"/>
+                <table name="dmr_rb_aggr_all" mode="rw"/>
+                <table name="dmr_rb_aggr_currency" mode="rw"/>
+                <table name="dmr_rb_aggr_income" mode="rw"/>
+                <table name="dmr_rb_aggr_ing_legal_entity" mode="rw"/>
+                <table name="dmr_rb_aggr_ltv" mode="rw"/>
+                <table name="dmr_rb_aggr_main" mode="rw"/>
+                <table name="dmr_rb_aggr_prov" mode="rw"/>
+                <table name="dmr_rb_aggr_rem_interest" mode="rw"/>
+                <table name="dmr_rb_aggr_rem_loan" mode="rw"/>
+                <table name="dmr_rb_aggr_res_ctry" mode="rw"/>
+                <table name="dmr_rb_aggr_sales_channel" mode="rw"/>
+                <table name="dmr_rb_measure" mode="rw"/>
+                <table name="dmr_recap_aggr_main" mode="rw"/>
+                <table name="dmr_recap_measure" mode="rw"/>
+                <table name="dwh_cva_capital" mode="rw"/>
+                <table name="dwh_exception" mode="rw"/>
+                <table name="dwh_incap_related_borrower" mode="rw"/>
+                <table name="dwh_llp_related_borrower" mode="rw"/>
+                <table name="dwh_raroc_related_borrower" mode="rw"/>
+                <table name="dwh_vbr_basel2" mode="rw"/>
+                <table name="dwh_vbr_basel2_irb_appr" mode="rw"/>
+                <table name="dwh_vbr_basel2_sa_appr" mode="rw"/>
+                <table name="dwh_vre_country_risk" mode="rw"/>
+                <table name="dwh_vre_cover_incap" mode="rw"/>
+                <table name="dwh_vre_cover_llp" mode="rw"/>
+                <table name="dwh_vre_cover_recap" mode="rw"/>
+                <table name="dwh_vre_customer_pd" mode="rw"/>
+                <table name="dwh_ifrs_multiyear" mode="rw"/>
+                <table name="dwh_ifrs_outstanding_reduction" mode="rw"/>
+                <table name="dwh_ifrs_related_borrower" mode="rw"/>
+                <table name="dwh_vre_cover_ifrs" mode="rw"/>
+                <table name="dwh_vre_cover_ifrs_multiyear" mode="rw"/>
+                <table name="dwh_vre_facility_ltv" mode="rw"/>
+                <table name="facility" mode="rw"/>
+                <table name="grs_repaym" mode="rw"/>
+                <table name="grs_repaym_schedule" mode="rw"/>
+                <table name="dwh_vre_aggregated_exposure" mode="rw"/>
+                <table name="income" mode="rw"/>
+                <table name="related_borrower" mode="rw"/>
+                <table name="country_risk" mode="rw"/>
+                <table name="dmr_country_risk_aggr_main_og" mode="rw"/>
+                <table name="dwh_cva_capital_allocated" mode="rw"/>
+                <table name="grid_cover_provider" mode="rw"/>
+                <table name="cover_provider_ext_rating" mode="rw"/>
+                <table name="dmr_reporting_period" mode="rw"/>
+            </tables>
+            <calls>
+                <call name="hcu_clean_up_table"/>
+                <call name="hcu_update_sync_key"/>
+            </calls>
+        </database>
+    </processor>
+    <!-- todo Check Invalid Views -->
+    <!-- Dbstats -->
+    <processor name="deploy" category="tools">
+        <database name="sdp">
+            <calls>
+                <call name="deploy_start"/>
+                <call name="deploy_end"/>
+            </calls>
+            <tables>
+                <table name="vortex_install_history" mode="rw"/>
+                <table name="deploy_history" mode="rw"/>
+            </tables>
+        </database>
+        <database name="dsa">
+            <calls>
+                <call name="asset_add"/>
+            </calls>
+            <tables>
+                <table name="vortex_install_history" mode="rw"/>
+                <table name="deploy_history" mode="rw"/>
+            </tables>
+        </database>
+        <database name="buss">
+            <calls>
+                <call name="asset_add"/>
+            </calls>
+            <tables>
+                <table name="vortex_install_history" mode="rw"/>
+                <table name="deploy_history" mode="rw"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="asset_add"/>
+            </calls>
+            <tables>
+                <table name="vortex_install_history" mode="rw"/>
+                <table name="deploy_history" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="gmdmailmonitor" category="monitoring">
+        <database name="sdp">
+            <tables>
+                <table name="gmd_dashboard" mode="ro"/>
+                <table name="gmd_dashboard_static" mode="ro"/>
+                <table name="gmd_dashboard_non_static" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+
+    <processor name="mailmonitor" category="monitoring">
+        <database name="sdp">
+            <tables>
+                <table name="loaded_file_set_customer" mode="ro"/>
+            </tables>
+        </database>
+        <database name="dsa">
+            <tables>
+                <table name="process_log" mode="ro"/>
+                <table name="source_system" mode="ro"/>
+            </tables>
+        </database>
+        <database name="buss">
+            <tables>
+                <!-- TransferDWH.sqlt -->
+                <table name="scs_bond" mode="ro"/>
+                <table name="scs_bond_price" mode="ro"/>
+                <table name="scs_equity_price" mode="ro"/>
+                <table name="scs_external_bond_rating" mode="ro"/>
+                <table name="scs_combined_security_data" mode="ro"/>
+                <table name="global_limit" mode="ro"/>
+                <table name="dwh_specific_provision" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <table name="dmi_action" mode="ro"/>
+                <table name="loaded_file_set_vre" mode="ro"/>
+                <table name="loaded_file_set_operational" mode="ro"/>
+                <table name="loaded_file_set_customer" mode="ro"/>
+                <table name="loaded_file_set_thresholds" mode="ro"/>
+                <!-- loadedInDWH.sqlt -->
+                <table name="transfer_queue_dsa" mode="ro"/>
+                <table name="process_log" mode="ro"/>
+                <table name="loaded_file_set_operational" mode="ro"/>
+                <table name="loaded_file_set_customer" mode="ro"/>
+                <table name="loaded_file_set_vre" mode="ro"/>
+                <table name="loaded_file_set_flex" mode="ro"/>
+                <table name="tmp_combined_uploads" mode="ro"/>
+                <table name="loaded_file_set" mode="ro"/>
+                <table name="dmi_combined_reporting_period" mode="ro"/>
+                <!--synchronisationDM.sqlt-->
+                <table name="dmi_process_workflow_base" mode="ro"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <tables>
+                <!-- TransferDWR.sqlt -->
+                <table name="loaded_file_set_vre" mode="ro"/>
+                <table name="exchange_rate" mode="ro"/>
+                <!--loadedInDWR.sqlt-->
+                <table name="process_log" mode="ro"/>
+                <table name="loaded_file_set" mode="ro"/>
+                <table name="loaded_file_set_vre" mode="ro"/>
+                <!-- synchronisationDMR.sqlt -->
+                <table name="dmr_process_workflow_base" mode="ro"/>
+            </tables>
+        </database>
+    </processor>
+
+    <!-- todo Versions -->
+    <!-- todo Vortexconfigurator -->
+    <!-- todo Vtximport -->
+    <!-- todo Vtxexport -->
+    <!-- todo Vxsql -->
+    <!-- todo Vxpasswords -->
+    <!-- todo Risk Test Framework -->
+    <!-- todo Vxenv -->
+    <!-- todo Vortex Defragmentation Tool -->
+    <!-- todo Cusspread -->
+    <processor name="vde.buss" category="exports">
+        <database name="sdp">
+            <calls>
+                <call name="get_next_export_id"/>
+            </calls>
+            <tables>
+                <table name="vde_config" mode="ro"/>
+                <table name="vde_event" mode="ro"/>
+                <table name="vde_column_transformation" mode="ro"/>
+                <table name="loaded_file_set_vde" mode="rw"/>
+            </tables>
+        </database>
+        <database name="buss">
+            <calls>
+                <call name="vde_invoke"/>
+                <call name="anacredit_export"/>
+                <call name="p_vdd_wbdil"/>
+                <call name="vde_select_customers"/>
+                <call name="vpp_finrep_aggr_ins"/>
+                <call name="vpp_finrep_aggr_purge"/>
+            </calls>
+            <tables>
+                <table name="vde_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vde.cons" category="exports">
+        <database name="sdp">
+            <calls>
+                <call name="get_next_export_id"/>
+            </calls>
+            <tables>
+                <table name="vde_config" mode="ro"/>
+                <table name="loaded_file_set_vde" mode="rw"/>
+            </tables>
+        </database>
+        <database name="cons">
+            <calls>
+                <call name="vde_invoke"/>
+                <call name="vpp_finrep_aggr_ins"/>
+                <call name="vpp_finrep_aggr_purge"/>
+            </calls>
+            <tables>
+                <table name="vde_queue" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="sde" category="exports">
+        <database name="sdp">
+            <calls>
+                <call name="get_next_export_id"/>
+            </calls>
+            <tables>
+                <table name="vde_config" mode="ro"/>
+                <table name="loaded_file_set_vde" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <!-- todo Static Data Exporter -->
+    <processor name="gridrecon" category="exports">
+        <database name="sdp">
+            <calls>
+                <call name="vortex_grid_reconciliation"/>
+            </calls>
+            <tables>
+                <table name="vor_org" mode="rw"/>
+                <table name="vor_xref" mode="rw"/>
+                <table name="vor_class1" mode="rw"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="corepexport" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="corep_export_reports"/>
+                <call name="corep_export_residual_value"/>
+                <call name="corep_export_reports_sec_det"/>
+                <call name="corep_le_export_reports"/>
+                <call name="corep_lr_da_export_reports"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="misrarocexport" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="exp_misraroc2"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="export2starpro" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_starpro"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="export_gmdb_request" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_gmdb_request"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="loo_export_lease" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_loo_to_lease"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="loo_export_dbnl" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_loo_to_dbnl"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="cfb_export_grid" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_cfb_to_grid"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="llp_export_recon" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_recon_to_llp"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="llp_export_grid" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_grid_to_llp"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="raceing_export_pnl" category="exports">
+        <database name="buss">
+            <calls>
+                <call name="vortex_export_to_raceing"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="gridinterface" category="mqinterfaces">
+        <database name="sdp">
+            <calls>
+                <call name="clear_customer_interface"/>
+                <call name="save_basic_customer_interface"/>
+                <call name="save_cust_def_reason_interface"/>
+                <call name="save_cust_imp_reason_interface"/>
+                <call name="save_cust_watch_list_interface"/>
+                <call name="save_cust_xml_interface"/>
+                <call name="save_derived_cust_interface"/>
+                <call name="save_ext_basic_cust_interface"/>
+                <call name="save_ext_cust_rating_interface"/>
+                <call name="save_cust_id_mapping_interface"/>
+            </calls>
+            <tables name="configuration">
+                <table name="grid_mq_interface_entities" mode="ro"/>
+                <table name="grid_mq_interface_procedures" mode="ro"/>
+            </tables>
+        </database>
+        <database name="dsa">
+            <tables name="configuration">
+                <table name='classification_mifid' mode='ro'/>
+                <table name='country' mode='ro'/>
+                <table name='cust_segm_pl' mode='ro'/>
+                <table name='customer_type' mode='ro'/>
+                <table name='customer_type_cdd' mode='ro'/>
+                <table name='customer_type_mifid' mode='ro'/>
+                <table name='emir_classification' mode='ro'/>
+                <table name='industry_type' mode='ro'/>
+                <table name='office' mode='ro'/>
+                <table name='rating_agency' mode='ro'/>
+                <table name='reason_of_default' mode='ro'/>
+                <table name='risk_level_cdd' mode='ro'/>
+                <table name='risk_rating' mode='ro'/>
+                <table name='segmentation_type' mode='ro'/>
+                <table name='watch_list' mode='ro'/>
+                <table name='grid_interface_exception' mode='rw'/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="legaladmininterface" category="mqinterfaces">
+        <database name="sdp">
+            <calls>
+                <call name="clear_la_agreement"/>
+                <call name="clear_la_netting_pool"/>
+                <call name="ins_la_agreement"/>
+                <call name="ins_la_agreement_product_type"/>
+                <call name="ins_la_condition"/>
+                <call name="ins_la_counterparty_branch"/>
+                <call name="ins_la_ing_legal_entity_branch"/>
+                <call name="ins_la_netting_branch_comb"/>
+                <call name="ins_la_netting_pool"/>
+                <call name="ins_la_netting_product"/>
+                <call name="ins_la_sub_agreement"/>
+                <call name="ins_la_sub_agreement_condition"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="countylimitinterface" category="mqinterfaces">
+        <database name="sdp">
+            <calls>
+                <call name="ins_global_limit"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="importautorizations" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="vsp_dmi_authorisation"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="llpsave" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="save_llp_provisions"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="llpfacilitydata" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="ws_llp_get_organisation_data"/>
+                <call name="ws_llp_get_facility_data"/>
+                <call name="ws_llp_get_cover_data"/>
+            </calls>
+        </database>
+    </processor>
+    <!-- todo Refresh Static Data (VRE Online e.g.) -->
+    <processor name="historicriskrating" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="historical_ratings"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="organisationalpslimit" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="ws_org_amount"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="oneobligorriskdata" category="webservices">
+        <database name="buss">
+            <calls>
+                <call name="ws_oog_amount"/>
+            </calls>
+        </database>
+    </processor>
+    <!-- todo Dashboard Webservice (Credit blocks) -->
+    <processor name="vos1.buss" category="reports">
+        <database name="buss">
+            <calls>
+                <call name="authorisation_enabled"/>
+                <call name="country_hierarchy"/>
+                <call name="country_reports_annex_j"/>
+                <call name="country_reports_general"/>
+                <call name="country_reports_risk_category"/>
+                <call name="cover_overview_report"/>
+                <call name="cover_type_hierarchy"/>
+                <call name="currency_hierarchy"/>
+                <call name="customer_details"/>
+                <call name="customer_report_details"/>
+                <call name="customer_report_history"/>
+                <call name="customer_report_main"/>
+                <call name="customer_review_date_hierarchy"/>
+                <call name="customer_source_data"/>
+                <call name="customer_tree"/>
+                <call name="customer_xref_data"/>
+                <call name="exception_detail_report"/>
+                <call name="exception_overview_report"/>
+                <call name="exception_report_category"/>
+                <call name="exception_report_detail_trendline"/>
+                <call name="exception_report_entity"/>
+                <call name="exception_report_source_system"/>
+                <call name="exception_report_sync_date"/>
+                <call name="exception_report_trendline"/>
+                <call name="exposure_class_hierarchy"/>
+                <call name="facility_aggregated_data"/>
+                <call name="facility_cover_detail"/>
+                <call name="facility_elec_detail"/>
+                <call name="facility_eligible_borrowers"/>
+                <call name="facility_outstanding_detail"/>
+                <call name="facility_provision_detail"/>
+                <call name="facility_purpose_hierarchy"/>
+                <call name="facility_raroc_detail"/>
+                <call name="facility_timebands"/>
+                <call name="facility_type_hierarchy"/>
+                <call name="fixed_report_main"/>
+                <call name="fund_manager_details"/>
+                <call name="get_hierarchy_codes"/>
+                <call name="get_hierarchy_levels"/>
+                <call name="get_selection_hierarchy"/>
+                <call name="get_user_type"/>
+                <call name="get_warr_codes"/>
+                <call name="history_cover_amounts"/>
+                <call name="ifrs_stage_trigger_hierarchy"/>
+                <call name="ing_legal_entity_hierarchy"/>
+                <call name="loaded_file_set_history_wholesale"/>
+                <call name="loaded_file_set_inprocess_wholesale"/>
+                <call name="loaded_file_set_recent_wholesale"/>
+                <call name="mis_raroc_office_hierarchy"/>
+                <call name="model_hierarchy"/>
+                <call name="office_base_entity_hierarchy"/>
+                <call name="office_hierarchy"/>
+                <call name="portfolio_report_covers"/>
+                <call name="portfolio_reports"/>
+                <call name="product_type_hierarchy"/>
+                <call name="provision_portfolio"/>
+                <call name="provision_report_status"/>
+                <call name="raroc_portfolio_reports"/>
+                <call name="rating_migration_customer_data"/>
+                <call name="rating_migration_facility_data"/>
+                <call name="rating_migration_general"/>
+                <call name="recap_reports"/>
+                <call name="review_date_overview_report"/>
+                <call name="risk_rating_ct_hierarchy"/>
+                <call name="risk_rating_hierarchy"/>
+                <call name="risk_rating_md_hierarchy"/>
+                <call name="risk_rating_pd_hierarchy"/>
+                <call name="run_off_report"/>
+                <call name="search_basel2_approach"/>
+                <call name="search_country"/>
+                <call name="search_country_state"/>
+                <call name="search_covertype"/>
+                <call name="search_customer"/>
+                <call name="search_elec_approach"/>
+                <call name="search_facilitypurpose"/>
+                <call name="search_facilitytype"/>
+                <call name="search_office"/>
+                <call name="search_producttype"/>
+                <call name="search_report_code"/>
+                <call name="search_reporting_entities"/>
+                <call name="search_system"/>
+                <call name="secondary_outstanding_details"/>
+                <call name="secondary_outstanding_overview"/>
+                <call name="secondary_outstanding_subsidiaries"/>
+                <call name="segmentation_type_hierarchy"/>
+                <call name="segmentation_type_polish_hierarchy"/>
+                <call name="static_data_hierarchy"/>
+                <call name="threshold_reports"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="vos1.cons" category="reports">
+        <database name="cons">
+            <calls>
+                <call name="cover_overview_report"/>
+                <call name="exception_detail_report"/>
+                <call name="exception_overview_report"/>
+                <call name="exception_report_category"/>
+                <call name="exception_report_detail_trendline"/>
+                <call name="exception_report_entity"/>
+                <call name="exception_report_source_system"/>
+                <call name="exception_sample_report"/>
+                <call name="list_age_class_tree"/>
+                <call name="list_age_level"/>
+                <call name="list_cover_type_level"/>
+                <call name="list_cover_type_tree"/>
+                <call name="list_customer_type_risk_rating_level"/>
+                <call name="list_facility_type_level"/>
+                <call name="list_facility_type_tree"/>
+                <call name="list_loan_status_level"/>
+                <call name="list_loan_status_tree"/>
+                <call name="list_office_level"/>
+                <call name="list_overdue_class"/>
+                <call name="list_risk_rating_level"/>
+                <call name="list_risk_rating_model_level"/>
+                <call name="loaded_file_set_history_retail"/>
+                <call name="loaded_file_set_inprocess_retail"/>
+                <call name="loaded_file_set_recent_retail"/>
+                <call name="portfolio_reports"/>
+                <call name="provision_portfolio"/>
+                <call name="provision_report_status"/>
+                <call name="rating_migration_general"/>
+                <call name="recap_reports"/>
+                <call name="search_facility_type"/>
+                <call name="search_rating"/>
+                <call name="search_system"/>
+            </calls>
+        </database>
+    </processor>
+    <processor name="vos2.buss" category="reports">
+        <database name="buss">
+            <calls name="business">
+                <call name="country_by_grid_id"/>
+                <call name="country_exposure_p3"/>
+                <call name="country_report_main_p3"/>
+                <call name="customer_report_main_p3"/>
+                <call name="dmi_get_report_hierarchy_type"/>
+                <call name="dmi_meta_get_dimensions"/>
+                <call name="dmi_meta_get_information"/>
+                <call name="dmi_meta_get_report_tabs"/>
+                <call name="dmi_meta_get_report_topn_columns"/>
+                <call name="dmi_meta_get_view_type"/>
+                <call name="get_fundmanager_indication_p3"/>
+                <call name="get_hierarchy_levels_p3"/>
+                <call name="get_oneobligor_p3"/>
+                <call name="get_organisation_p3"/>
+                <call name="get_user_type"/>
+                <call name="intercompany_hierarchy_p3"/>
+                <call name="largeexposure_reports_p3"/>
+                <call name="portfolio_reports_p3"/>
+                <call name="reporting_entities_hierarchy_p3"/>
+                <call name="search_customer_p3"/>
+                <call name="static_data_hierarchy_p3"/>
+            </calls>
+            <calls name="metadata">
+                <call name="dmi_meta_get_information"/>
+                <call name="dmi_metadata_synchronization_updates"/>
+            </calls>
+            <tables name="business">
+                <table name="country_by_grid_id"/>
+                <table name="country_exposure_p3"/>
+                <table name="country_report_main_p3"/>
+                <table name="customer_report_main_p3"/>
+                <table name="dmi_get_report_hierarchy_type"/>
+                <table name="dmi_meta_get_dimensions"/>
+                <table name="dmi_meta_get_information"/>
+                <table name="dmi_meta_get_report_tabs"/>
+                <table name="dmi_meta_get_report_topn_columns"/>
+                <table name="dmi_meta_get_view_type"/>
+                <table name="get_fundmanager_indication_p3"/>
+                <table name="get_hierarchy_levels_p3"/>
+                <table name="get_oneobligor_p3"/>
+                <table name="get_organisation_p3"/>
+                <table name="get_user_type"/>
+                <table name="intercompany_hierarchy_p3"/>
+                <table name="largeexposure_reports_p3"/>
+                <table name="portfolio_reports_p3"/>
+                <table name="reporting_entities_hierarchy_p3"/>
+                <table name="search_customer_p3"/>
+                <table name="static_data_hierarchy_p3"/>
+            </tables>
+        </database>
+    </processor>
+    <processor name="vos2.cons" category="reports">
+        <database name="cons">
+            <calls name="consumer">
+                <call name="country_exposure_p3"/>
+                <call name="country_report_main_p3"/>
+                <call name="portfolio_reports_p3"/>
+            </calls>
+        </database>
+    </processor>
+
+</processors>
