@@ -1,2 +1,2 @@
-# tsql2xml
-Grammar for Sybase ASE and IQ
+# SqlXmlAst-processing
+Processing stylesheets for downstream SqlXmlAst
