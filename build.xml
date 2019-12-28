@@ -11,14 +11,18 @@
 
     <import file="build.sqlxmlast.xml"/>
  
-    <property name="build.ast" value="build/ast"/>
+    <property name="build" value="build"/>
+    <property name="build.ast" value="${build}/ast"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+    </target>
 
     <target name="oracle.dsa.procedure.ast">
-        <mkdir dir="${build.ast}"/>
         <sqlxmlast
               basedir="${vortex-oracle-central}"
               destdir="${build.ast}"
-        >
+              failOnTransformationError="false">
             <include name="dsa/procedures/*.sql"/>
         </sqlxmlast>
     </target>
