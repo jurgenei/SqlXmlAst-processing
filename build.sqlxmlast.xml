@@ -1,0 +1,14 @@
+<project name="vortex lineage sqlxmlast" basedir=".">
+    <taskdef name="sqlxmlast" classname="com.ing.vortex.parsers.antlr.SqlXmlAstAntTask">
+        <classpath>
+            <pathelement location="${repo}/com/ing/vortex/parsers/antlr/plsql/1.0-SNAPSHOT/plsql-1.0-SNAPSHOT.jar"/>
+            <pathelement location="${repo}/com/ing/vortex/parsers/antlr/tsql/1.0-SNAPSHOT/tsql-1.0-SNAPSHOT.jar"/>
+            <pathelement
+                    location="${repo}/com/ing/vortex/parsers/antlr/ant-task/1.0-SNAPSHOT/ant-task-1.0-SNAPSHOT.jar"/>
+            <pathelement location="${repo}/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar"/>
+            <pathelement location="${repo}/commons-lang/commons-lang/2.5/commons-lang-2.5.jar"/>
+            <pathelement location="${repo}/org/glassfish/jaxb/txw2/2.2.11/txw2-2.2.11.jar"/>
+            
+        </classpath>
+    </taskdef>
+</project>

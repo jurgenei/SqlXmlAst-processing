@@ -1,0 +1,48 @@
+<project name="vortex lineage" basedir=".">
+	
+    <property name="repo" location="C:/Users/cs79en/.m2/repository"/>
+    <property name="projects" location="C:/Users/cs79en/Projects"/>
+    <property name="vortex-oracle-central" location="${projects}/VortexCentralOracle/oracle"/>
+    <property name="vortex-sybase-central" location="${projects}/svn/vortex-central"/>
+    <property name="src.xml" value="src/main/xml"/>
+    <property name="src.xml.docs" value="${src.xml}/docs"/>
+    <property name="src.xml.stylesheets" value="${src.xml}/stylesheets"/>
+    <property name="saxon.class.path" value="lib/saxon-9.1.0.8j.jar"/>
+
+    <import file="build.sqlxmlast.xml"/>
+ 
+    <property name="build.ast" value="build/ast"/>
+
+    <target name="oracle.dsa.procedure.ast">
+        <mkdir dir="${build.ast}"/>
+        <sqlxmlast
+              basedir="${vortex-oracle-central}"
+              destdir="${build.ast}"
+        >
+            <include name="dsa/procedures/*.sql"/>
+        </sqlxmlast>
+    </target>
+
+    <target name="oracle.dsa.procedure.env">
+        <xslt extension=".xml"
+              basedir="build/xml/ast/sybase"
+              destdir="build/xml/envelope"
+              style="src/xslt/envelope.xslt"
+              failOnTransformationError="false">
+            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+            <classpath location="${saxon.class.path}"/>
+            <include file="iq/dmi/procedure/**/*.xml"/>
+        </xslt>
+    </target>
+ 
+    <target name="zip">
+        <zip destfile="build/zips/dsa.zip"
+             basedir="build/xml/envelope/ase/dsa"/>
+        <zip destfile="build/zips/sdp.zip"
+             basedir="build/xml/envelope/ase/sdp"/>
+        <zip destfile="build/zips/buss.zip"
+             basedir="build/xml/envelope/iq/dmi"/>
+        <zip destfile="build/zips/cons.zip"
+             basedir="build/xml/envelope/iq/dmr"/>
+    </target>
+</project>
