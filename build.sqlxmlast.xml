@@ -8,7 +8,32 @@
             <pathelement location="${repo}/org/antlr/antlr4-runtime/4.7.1/antlr4-runtime-4.7.1.jar"/>
             <pathelement location="${repo}/commons-lang/commons-lang/2.5/commons-lang-2.5.jar"/>
             <pathelement location="${repo}/org/glassfish/jaxb/txw2/2.2.11/txw2-2.2.11.jar"/>
-            
         </classpath>
     </taskdef>
+    <macrodef name="ast">
+        <attribute name="dir" default="NOT SET"/>
+        <sequential>
+            <sqlxmlast
+            basedir="${vortex-oracle-central}"
+            destdir="${build.ast}"
+            failOnTransformationError="false">
+          <include name="@{dir}/**/*.sql"/>
+      </sqlxmlast>
+        </sequential>
+    </macrodef>
+    <macrodef name="envelope">
+        <attribute name="dir" default="NOT SET"/>
+        <sequential>
+            <xslt extension=".xml"
+            basedir="${build.ast}"
+            destdir="${build.env}"
+            style="src/xslt/envelope.xslt"
+            failOnTransformationError="false">
+          <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+          <classpath location="${saxon.class.path}"/>
+          <include file="@{dir}/*.xml"/>
+      </xslt>
+        </sequential>
+    </macrodef>
+
 </project>

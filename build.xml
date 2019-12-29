@@ -13,32 +13,43 @@
  
     <property name="build" value="build"/>
     <property name="build.ast" value="${build}/ast"/>
-
+    <property name="build.env" value="${build}/env"/>
+    <!-- 
+     | cleaning 
+     -->
     <target name="clean">
         <delete dir="${build}"/>
     </target>
-
+    <!-- 
+     | procedures 
+     -->
     <target name="oracle.dsa.procedure.ast">
-        <sqlxmlast
-              basedir="${vortex-oracle-central}"
-              destdir="${build.ast}"
-              failOnTransformationError="false">
-            <include name="dsa/procedures/*.sql"/>
-        </sqlxmlast>
+        <ast dir="dsa/procedures"/>
     </target>
-
+    <target name="oracle.sdp.procedure.ast">
+        <ast dir="sdp/procedures"/>
+    </target>
+    <target name="oracle.buss.procedure.ast">
+        <ast dir="buss/procedures"/>
+    </target>
+    <target name="oracle.cons.procedure.ast">
+        <ast dir="cons/procedures"/>
+    </target>
+    <!-- 
+     | tables 
+     -->
+    <target name="oracle.dsa.table.ast">
+        <ast dir="dsa/tables"/>
+    </target>
+    <!-- 
+     | transformations 
+    -->
     <target name="oracle.dsa.procedure.env">
-        <xslt extension=".xml"
-              basedir="build/xml/ast/sybase"
-              destdir="build/xml/envelope"
-              style="src/xslt/envelope.xslt"
-              failOnTransformationError="false">
-            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-            <classpath location="${saxon.class.path}"/>
-            <include file="iq/dmi/procedure/**/*.xml"/>
-        </xslt>
+        <envelope dir="dsa/procedure"/>
     </target>
- 
+    <!-- 
+     | zipping 
+    -->
     <target name="zip">
         <zip destfile="build/zips/dsa.zip"
              basedir="build/xml/envelope/ase/dsa"/>
