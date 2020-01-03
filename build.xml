@@ -1,19 +1,19 @@
 <project name="vortex lineage" basedir=".">
-	
-    <property name="repo" location="C:/Users/cs79en/.m2/repository"/>
+
     <property name="projects" location="C:/Users/cs79en/Projects"/>
     <property name="vortex-oracle-central" location="${projects}/VortexCentralOracle/oracle"/>
     <property name="vortex-sybase-central" location="${projects}/svn/vortex-central"/>
     <property name="src.xml" value="src/main/xml"/>
     <property name="src.xml.docs" value="${src.xml}/docs"/>
     <property name="src.xml.stylesheets" value="${src.xml}/stylesheets"/>
-    <property name="saxon.class.path" value="lib/saxon-9.1.0.8j.jar"/>
-
-    <import file="build.sqlxmlast.xml"/>
- 
     <property name="build" value="build"/>
     <property name="build.ast" value="${build}/ast"/>
+    <property name="build.cleanup-syntax" value="${build}/cleanup-syntax"/>
+    <property name="build.html" value="${build}/html"/>
     <property name="build.env" value="${build}/env"/>
+
+    <import file="build.sqlxmlast.xml"/>
+
     <!-- 
      | cleaning 
      -->
@@ -24,40 +24,70 @@
      | procedures 
      -->
     <target name="oracle.dsa.procedure.ast">
-        <ast dir="dsa/procedures"/>
+        <sql2ast dir="dsa/procedures"/>
     </target>
     <target name="oracle.sdp.procedure.ast">
-        <ast dir="sdp/procedures"/>
+        <sql2ast dir="sdp/procedures"/>
     </target>
     <target name="oracle.buss.procedure.ast">
-        <ast dir="buss/procedures"/>
+        <sql2ast dir="buss/procedures"/>
     </target>
     <target name="oracle.cons.procedure.ast">
-        <ast dir="cons/procedures"/>
+        <sql2ast dir="cons/procedures"/>
     </target>
     <!-- 
      | tables 
      -->
     <target name="oracle.dsa.table.ast">
-        <ast dir="dsa/tables"/>
+        <sql2ast dir="dsa/tables"/>
+    </target>
+    <target name="oracle.buss.table.ast">
+        <sql2ast dir="buss/tables"/>
     </target>
     <!-- 
      | transformations 
     -->
-    <target name="oracle.dsa.procedure.env">
-        <envelope dir="dsa/procedure"/>
+    <target name="oracle.dsa.procedure.tidy">
+        <ast2tidy dir="dsa/procedures"/>
+    </target>
+
+    <target name="oracle.dsa.tables.tidy">
+        <ast2tidy dir="dsa/tables"/>
+    </target>
+    
+    <target name="oracle.dsa.procedure.html">
+        <tidy2html dir="dsa/procedures"/>
+    </target>
+    <target name="oracle.dsa.tables.html">
+        <tidy2html dir="dsa/tables"/>
+    </target>
+    <target name="oracle.dsa">
+        <sql2ast dir="dsa"/>
+        <ast2tidy dir="dsa"/>
+        <tidy2html dir="dsa"/>
+    </target> 
+    <target name="oracle.sdp">
+        <sql2ast dir="sdp"/>
+        <ast2tidy dir="sdp"/>
+        <tidy2html dir="sdp"/>
+    </target> 
+    <target name="oracle.buss">
+        <sql2ast dir="buss"/>
+        <ast2tidy dir="buss"/>
+        <tidy2html dir="buss"/>
+    </target> 
+    <target name="oracle.cons">
+        <sql2ast dir="cons"/>
+        <ast2tidy dir="cons"/>
+        <tidy2html dir="cons"/>
     </target>
     <!-- 
      | zipping 
     -->
     <target name="zip">
-        <zip destfile="build/zips/dsa.zip"
-             basedir="build/xml/envelope/ase/dsa"/>
-        <zip destfile="build/zips/sdp.zip"
-             basedir="build/xml/envelope/ase/sdp"/>
-        <zip destfile="build/zips/buss.zip"
-             basedir="build/xml/envelope/iq/dmi"/>
-        <zip destfile="build/zips/cons.zip"
-             basedir="build/xml/envelope/iq/dmr"/>
+        <zip destfile="build/zips/dsa.zip" basedir="build/html/dsa"/>
+        <zip destfile="build/zips/sdp.zip" basedir="build/html/sdp"/>
+        <zip destfile="build/zips/buss.zip" basedir="build/html/buss"/>
+        <zip destfile="build/zips/cons.zip" basedir="build/html/cons"/>
     </target>
 </project>
