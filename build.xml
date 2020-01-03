@@ -1,19 +1,9 @@
 <project name="vortex lineage" basedir=".">
-
-    <property name="projects" location="C:/Users/cs79en/Projects"/>
-    <property name="vortex-oracle-central" location="${projects}/VortexCentralOracle/oracle"/>
-    <property name="vortex-sybase-central" location="${projects}/svn/vortex-central"/>
-    <property name="src.xml" value="src/main/xml"/>
-    <property name="src.xml.docs" value="${src.xml}/docs"/>
-    <property name="src.xml.stylesheets" value="${src.xml}/stylesheets"/>
-    <property name="build" value="build"/>
-    <property name="build.ast" value="${build}/ast"/>
-    <property name="build.cleanup-syntax" value="${build}/cleanup-syntax"/>
-    <property name="build.html" value="${build}/html"/>
-    <property name="build.env" value="${build}/env"/>
-
+    <!-- 
+     | Definitions 
+     -->
+    <import file="build.settings.xml"/>
     <import file="build.sqlxmlast.xml"/>
-
     <!-- 
      | cleaning 
      -->
@@ -50,17 +40,35 @@
     <target name="oracle.dsa.procedure.tidy">
         <ast2tidy dir="dsa/procedures"/>
     </target>
-
     <target name="oracle.dsa.tables.tidy">
         <ast2tidy dir="dsa/tables"/>
     </target>
-    
     <target name="oracle.dsa.procedure.html">
         <tidy2html dir="dsa/procedures"/>
     </target>
     <target name="oracle.dsa.tables.html">
         <tidy2html dir="dsa/tables"/>
     </target>
+    
+    <target name="dsa">
+        <property name="db" value="dsa"/>
+    </target> 
+    <target name="sdp">
+        <property name="db" value="dsa"/>
+    </target>
+    <target name="buss">
+        <property name="db" value="buss"/>
+    </target>   
+    <target name="cons">
+        <property name="db" value="cons"/>
+    </target>
+    <target name="all">
+        <fail unless="db"/>
+        <sql2ast dir="${db}"/>
+        <ast2tidy dir="${db}"/>
+        <tidy2html dir="${db}"/>
+    </target>  
+    
     <target name="oracle.dsa">
         <sql2ast dir="dsa"/>
         <ast2tidy dir="dsa"/>

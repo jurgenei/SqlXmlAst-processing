@@ -1,4 +1,4 @@
-<project name="vortex lineage sqlxmlast" basedir=".">
+<project name="sqlxmlast task defs and macros" basedir=".">
     <property name="repo" location="C:/Users/cs79en/.m2/repository"/>
     <property name="antlr" location="${repo}/com/ing/vortex/parsers/antlr"/>
     <taskdef name="sqlxmlast" classname="com.ing.vortex.parsers.antlr.SqlXmlAstAntTask">

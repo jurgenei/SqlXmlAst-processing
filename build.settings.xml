@@ -1,0 +1,13 @@
+<project name="sqlxmlast settings" basedir=".">
+    <property name="projects" location="C:/Users/cs79en/Projects"/>
+    <property name="vortex-oracle-central" location="${projects}/VortexCentralOracle/oracle"/>
+    <property name="vortex-sybase-central" location="${projects}/svn/vortex-central"/>
+    <property name="src.xml" value="src/main/xml"/>
+    <property name="src.xml.docs" value="${src.xml}/docs"/>
+    <property name="src.xml.stylesheets" value="${src.xml}/stylesheets"/>
+    <property name="build" value="build"/>
+    <property name="build.ast" value="${build}/ast"/>
+    <property name="build.cleanup-syntax" value="${build}/cleanup-syntax"/>
+    <property name="build.html" value="${build}/html"/>
+    <property name="build.env" value="${build}/env"/>
+</project>
