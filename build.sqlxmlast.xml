@@ -35,12 +35,27 @@
     <macrodef name="tidy2html">
         <attribute name="dir" default="NOT SET"/>
         <sequential>
+            <makeurl file="${build.html}/@{dir}/xref.xml" property="xref-uri"/>
             <xslt extension=".html" basedir="${build.cleanup-syntax}" destdir="${build.html}"
                 style="src/xml/stylesheets/tidy2html.xslt" failOnTransformationError="false">
                 <factory name="net.sf.saxon.TransformerFactoryImpl"/>
                 <classpath location="${saxon.class.path}"/>
                 <include name="@{dir}/**/*.xml"/>
+                <param name="xref-uri" expression="${xref-uri}"/>
             </xslt>
         </sequential>
     </macrodef> 
+    <macrodef name="toc">
+        <attribute name="dir" default="NOT SET"/>
+        <sequential>
+            <makeurl file="${build.cleanup-syntax}/@{dir}/procedures" property="uri"/>
+            <xslt in="${src.xml.toc}" out="${build.html}/@{dir}/xref.xml"
+                style="src/xml/stylesheets/dependency-graph.xslt" failOnTransformationError="false">
+                <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+                <classpath location="${saxon.class.path}"/>
+                <param name="folder-uri" expression="${uri}"/>
+            </xslt>
+        </sequential>
+    </macrodef> 
+    
 </project>

@@ -37,8 +37,8 @@
     <!-- 
      | transformations 
     -->
-    <target name="oracle.dsa.procedure.tidy">
-        <ast2tidy dir="dsa/procedures"/>
+    <target name="oracle.dsa.tidy">
+        <ast2tidy dir="dsa"/>
     </target>
     <target name="oracle.dsa.tables.tidy">
         <ast2tidy dir="dsa/tables"/>
@@ -49,41 +49,73 @@
     <target name="oracle.dsa.tables.html">
         <tidy2html dir="dsa/tables"/>
     </target>
-    
+    <target name="oracle.sdp.procedure.html">
+        <tidy2html dir="sdp/procedures"/>
+    </target>
     <target name="dsa">
         <property name="db" value="dsa"/>
-    </target> 
+    </target>
     <target name="sdp">
-        <property name="db" value="dsa"/>
+        <property name="db" value="sdp"/>
     </target>
     <target name="buss">
         <property name="db" value="buss"/>
-    </target>   
+    </target>
     <target name="cons">
         <property name="db" value="cons"/>
     </target>
     <target name="all">
         <fail unless="db"/>
+        <!--
         <sql2ast dir="${db}"/>
+        -->
         <ast2tidy dir="${db}"/>
         <tidy2html dir="${db}"/>
-    </target>  
+    </target>
+
+    <target name="oracle.dsa.toc">
+        <toc dir="dsa"/>
+    </target>
+    <target name="oracle.sdp.toc">
+        <toc dir="sdp"/>
+    </target>
+    <target name="oracle.buss.toc">
+        <toc dir="buss"/>
+    </target>
+    <target name="oracle.cons.toc">
+        <toc dir="cons"/>
+    </target>
+
+    <target name="oracle.all.toc">
+        <toc dir="dsa"/>
+        <toc dir="sdp"/>
+        <toc dir="buss"/>
+        <toc dir="cons"/>
+    </target>
+    
+    <target name="oracle.all.tidy2html">
+        <tidy2html dir="dsa"/>
+        <tidy2html dir="sdp"/>
+        <tidy2html dir="buss"/>
+        <tidy2html dir="cons"/>
+    </target>
+    
     
     <target name="oracle.dsa">
         <sql2ast dir="dsa"/>
         <ast2tidy dir="dsa"/>
         <tidy2html dir="dsa"/>
-    </target> 
+    </target>
     <target name="oracle.sdp">
         <sql2ast dir="sdp"/>
         <ast2tidy dir="sdp"/>
         <tidy2html dir="sdp"/>
-    </target> 
+    </target>
     <target name="oracle.buss">
         <sql2ast dir="buss"/>
         <ast2tidy dir="buss"/>
         <tidy2html dir="buss"/>
-    </target> 
+    </target>
     <target name="oracle.cons">
         <sql2ast dir="cons"/>
         <ast2tidy dir="cons"/>
@@ -92,6 +124,9 @@
     <!-- 
      | zipping 
     -->
+    <target name="zip.html">
+        <zip destfile="build/zips/vortex.zip" basedir="build/html"/>
+    </target>
     <target name="zip">
         <zip destfile="build/zips/dsa.zip" basedir="build/html/dsa"/>
         <zip destfile="build/zips/sdp.zip" basedir="build/html/sdp"/>
