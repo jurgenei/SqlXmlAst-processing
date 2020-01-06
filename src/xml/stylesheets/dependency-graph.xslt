@@ -56,6 +56,7 @@
     </xsl:template>
     <xsl:template match="g:create-procedure-body">
         <procedure name="{lower-case(g:procedure-name)}">
+            <xsl:attribute name="path" select="ancestor::g:*/@path"/>
             <!-- call stack: dedup and group -->
             <xsl:variable name="f" as="node()*">
                 <xsl:apply-templates select=".//g:function-call/g:routine-name" mode="call-stack"/>

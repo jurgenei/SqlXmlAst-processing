@@ -1,4 +1,4 @@
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:g="http://ing.com/vortex/sql/grammar" xmlns:c="http://ing.com/vortex/sql/comments"
     xmlns:f="http://ing.com/vortex/sql/functions" xmlns="http://www.w3.org/1999/xhtml">
     <xsl:output method="html" version="4.0" encoding="UTF-8" indent="no"/>
@@ -73,17 +73,28 @@
         <h1>
             <xsl:value-of select="@path"/>
         </h1>
-        <xsl:variable name="pn" select=".//g:create-procedure-body/g:procedure-name"/>
+        <xsl:variable name="comp" select="count(tokenize(@path, '/')[position() gt 2])"/>
+        <xsl:variable name="base1" select="string-join((for $i in 1 to $comp return '..'),'/')"/>
+        <xsl:variable name="base" select="if ($base1) then $base1 else '..'"/>
+        <xsl:variable name="pn" select="lower-case(.//g:create-procedure-body/g:procedure-name)"/>
+        <xsl:variable name="tn" select="lower-case(.//g:create-table/g:id[position() = last()])"/>
+        <!-- 
+        pn=<xsl:value-of select="$pn"/> tn=<xsl:value-of select="$tn"/> base=<xsl:value-of
+            select="$base"/>
+         -->  
+ 
+ 
         <xsl:variable name="xref" select="doc($xref-uri)" as="node()*"/>
-        <xsl:variable name="lookup" select="$xref//g:procedure[@name = $pn]"/>
+        <xsl:variable name="lookup" select="$xref//g:procedure[@name = $pn]" as="node()*"/>
+        <xsl:variable name="lookupt" select="$xref//g:tables/g:table[@name = $tn]" as="node()*"/>
+        <xsl:variable name="procs" select="$lookupt/g:procedure" as="node()*"/>
         <xsl:choose>
             <xsl:when test="$lookup">
                 <xsl:variable name="callees" select="$lookup//g:callee"/>
                 <xsl:variable name="calls" select="$lookup//g:calls[not(@pkg)]/g:call"/>
                 <xsl:variable name="tables" select="$lookup//g:table"/>
                 <xsl:variable name="i" select="$tables[@use = 'select']"/>
-                <xsl:variable name="x" select="$tables[matches(@use, 'select')]"/>
-                <xsl:variable name="o" select="$tables[not(matches(@use, 'select'))]"/>
+                <xsl:variable name="x" select="$tables[not(@use = 'select')]"/>
                 <div class="header">
                     <xsl:if test="$callees or $calls or $tables">
                         <table>
@@ -101,9 +112,6 @@
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:if>
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="' '"/>
                                     </td>
                                     <td>
                                         <xsl:if test="$calls">
@@ -127,7 +135,7 @@
                                         <xsl:if test="$i">
                                             <span class="t">input: </span>
                                             <xsl:for-each select="$i">
-                                                <a href="../tables/{@name}.html">
+                                                <a href="{$base}/tables/{@name}.html">
                                                   <xsl:value-of select="@name"/>
                                                 </a>
                                                 <xsl:if test="not(position() = last())">
@@ -149,22 +157,36 @@
                                             </xsl:for-each>
                                         </xsl:if>
                                     </td>
-                                    <td>
-                                        <xsl:if test="$o">
-                                            <span class="t">output: </span>
-                                            <xsl:for-each select="$o">
-                                                <a href="../tables/{@name}.html">
-                                                  <xsl:value-of select="@name"/>
-                                                </a>
-                                                <xsl:if test="not(position() = last())">
-                                                  <xsl:value-of select="', '"/>
-                                                </xsl:if>
-                                            </xsl:for-each>
-                                        </xsl:if>
-                                    </td>
                                 </tr>
                             </xsl:if>
                         </table>
+                    </xsl:if>
+                </div>
+            </xsl:when>
+            <xsl:when test="$lookupt">
+                <div class="header">
+                    <xsl:if test="$procs">
+                        <span class="t">procedures using <xsl:value-of select="$tn"/>: </span>
+                        <xsl:for-each select="$procs">
+                            <xsl:variable name="path" select="@path"/>
+                            <xsl:choose>
+                                <xsl:when test="$path">
+                                    <xsl:variable name="new_path" select="replace(replace($path,'^[/]+',$base),'\.xml','.html')"/>
+                                    <a href="{$new_path}">
+                                        <xsl:value-of select="@name"/>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <a href="{$base}/procedures/{@name}.html">
+                                        <xsl:value-of select="@name"/>
+                                    </a>
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                            <xsl:if test="not(position() = last())">
+                                <xsl:value-of select="', '"/>
+                            </xsl:if>
+                        </xsl:for-each>
                     </xsl:if>
                 </div>
             </xsl:when>

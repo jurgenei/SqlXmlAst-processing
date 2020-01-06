@@ -14,10 +14,13 @@
     <macrodef name="sql2ast">
         <attribute name="dir" default="NOT SET"/>
         <sequential>
+            <mkdir dir="log"/>
+            <record name="log/sql2ast.txt" action="start" append="yes"/>
             <sqlxmlast basedir="${vortex-oracle-central}" destdir="${build.ast}"
                 failOnTransformationError="false">
                 <include name="@{dir}/**/*.sql"/>
             </sqlxmlast>
+            <record name="log/sql2ast.txt" action="stop"/>
         </sequential>
     </macrodef>
     <property name="saxon.class.path" value="lib/saxon-9.1.0.8j.jar"/>

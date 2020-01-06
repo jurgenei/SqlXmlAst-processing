@@ -86,24 +86,40 @@
         <toc dir="cons"/>
     </target>
 
+    <target name="oracle.all.ast">
+        <sql2ast dir="dsa"/>
+        <sql2ast dir="sdp"/>
+        <sql2ast dir="buss"/>
+        <sql2ast dir="cons"/>
+    </target>
+    
     <target name="oracle.all.toc">
         <toc dir="dsa"/>
         <toc dir="sdp"/>
         <toc dir="buss"/>
         <toc dir="cons"/>
     </target>
-    
+
     <target name="oracle.all.tidy2html">
         <tidy2html dir="dsa"/>
         <tidy2html dir="sdp"/>
         <tidy2html dir="buss"/>
         <tidy2html dir="cons"/>
     </target>
+    <target name="oracle.cons.tidy2html">
+        
+ 
+        <tidy2html dir="cons"/>
+       
+        <zip destfile="build/zips/cons.zip" basedir="build/html/cons"/>
+    </target>
     
     
+
     <target name="oracle.dsa">
         <sql2ast dir="dsa"/>
         <ast2tidy dir="dsa"/>
+        <toc dir="dsa"/>
         <tidy2html dir="dsa"/>
     </target>
     <target name="oracle.sdp">
