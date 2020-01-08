@@ -1,4 +1,5 @@
 <project name="sqlxmlast task defs and macros" basedir=".">
+    <property name="saxon.class.path" value="lib/saxon-9.1.0.8j.jar"/>
     <property name="repo" location="C:/Users/cs79en/.m2/repository"/>
     <property name="antlr" location="${repo}/com/ing/vortex/parsers/antlr"/>
     <taskdef name="sqlxmlast" classname="com.ing.vortex.parsers.antlr.SqlXmlAstAntTask">
@@ -23,10 +24,10 @@
             <record name="log/sql2ast.txt" action="stop"/>
         </sequential>
     </macrodef>
-    <property name="saxon.class.path" value="lib/saxon-9.1.0.8j.jar"/>
     <macrodef name="ast2tidy">
         <attribute name="dir" default="NOT SET"/>
         <sequential>
+            <echo>ast2tidy ${build.ast}/@{dir}</echo>
             <xslt extension=".xml" basedir="${build.ast}" destdir="${build.cleanup-syntax}"
                 style="src/xml/stylesheets/cleanup-syntax.xslt" failOnTransformationError="false">
                 <factory name="net.sf.saxon.TransformerFactoryImpl"/>
@@ -40,7 +41,7 @@
         <sequential>
             <makeurl file="${build.html}/@{dir}/xref.xml" property="xref-uri"/>
             <xslt extension=".html" basedir="${build.cleanup-syntax}" destdir="${build.html}"
-                style="src/xml/stylesheets/tidy2html.xslt" failOnTransformationError="false">
+                style="src/xml/stylesheets/tidy2html.xslt" failOnTransformationError="false" force="true">
                 <factory name="net.sf.saxon.TransformerFactoryImpl"/>
                 <classpath location="${saxon.class.path}"/>
                 <include name="@{dir}/**/*.xml"/>
@@ -53,7 +54,7 @@
         <sequential>
             <makeurl file="${build.cleanup-syntax}/@{dir}/procedures" property="uri"/>
             <xslt in="${src.xml.toc}" out="${build.html}/@{dir}/xref.xml"
-                style="src/xml/stylesheets/dependency-graph.xslt" failOnTransformationError="false">
+                style="src/xml/stylesheets/dependency-graph.xslt" failOnTransformationError="false" force="true">
                 <factory name="net.sf.saxon.TransformerFactoryImpl"/>
                 <classpath location="${saxon.class.path}"/>
                 <param name="folder-uri" expression="${uri}"/>
