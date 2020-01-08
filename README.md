@@ -1,5 +1,5 @@
 # SqlXmlLin
-Processing stylesheets for rewriting SqlXmlAst into something useful, some ideas:
+Processing stylesheets for rewriting SqlXmlAst output into something useful, some ideas:
 
 * Data Lineage Graphs
 * Visualisation
