@@ -49,6 +49,19 @@
             </xslt>
         </sequential>
     </macrodef> 
+    <macrodef name="tidy2lin">
+        <attribute name="dir" default="NOT SET"/>
+        <sequential>
+            <makeurl file="${build.html}/@{dir}/xref.xml" property="xref-uri"/>
+            <xslt extension=".xml" basedir="${build.cleanup-syntax}" destdir="${build.lin}"
+                style="src/xml/stylesheets/tidy2lin.xslt" failOnTransformationError="false" force="true">
+                <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+                <classpath location="${saxon.class.path}"/>
+                <include name="@{dir}/procedures/cusupdater/*.xml"/>
+                <param name="xref-uri" expression="${xref-uri}"/>
+            </xslt>
+        </sequential>
+    </macrodef> 
     <macrodef name="toc">
         <attribute name="dir" default="NOT SET"/>
         <sequential>

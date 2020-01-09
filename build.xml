@@ -34,6 +34,10 @@
         <ast2tidy dir="cons"/>
         <tidy2html dir="cons"/>
     </target>
+    <target name="lin.sdp">
+        <tidy2lin dir="sdp"/>
+    </target>
+    
     <!-- 
      | zipping 
     -->

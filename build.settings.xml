@@ -9,6 +9,7 @@
     <property name="build.ast" location="${build}/ast"/>
     <property name="build.cleanup-syntax" location="${build}/cleanup-syntax"/>
     <property name="build.html" location="${build}/html"/>
+    <property name="build.lin" location="${build}/lin"/>
     <property name="build.env" location="${build}/env"/>
     <property name="src.xml.toc" location="${src.xml.docs}/toc.template.xml"/>
 </project>
