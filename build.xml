@@ -14,10 +14,18 @@
      | transformations 
     -->
     <target name="oracle.dsa">
+        <!--
         <sql2ast dir="dsa"/>
         <ast2tidy dir="dsa"/>
         <toc dir="dsa"/>
         <tidy2html dir="dsa"/>
+
+        <ast2tidy dir="dsa"/>
+        <tab dir="dsa"/>
+                -->
+        <tidy2lin dir="dsa"/>
+       
+    
     </target>
     <target name="oracle.sdp">
         <sql2ast dir="sdp"/>
@@ -33,11 +41,28 @@
         <sql2ast dir="cons"/>
         <ast2tidy dir="cons"/>
         <tidy2html dir="cons"/>
+        <tidy2lin dir="cons"/>
     </target>
+    
     <target name="lin.sdp">
         <tidy2lin dir="sdp"/>
     </target>
-    
+    <!-- debug -->
+    <target name="tidy">
+        <ast2tidy dir="sdp/procedures/cusupdater"/>
+    </target>
+    <target name="linx">
+        <tidy2lin dir="sdp/procedures/cusupdater"/>
+    </target>
+    <target name="lin">
+        <tidy2lin dir="sdp"/>
+    </target>   
+    <target name="tab">
+        <!--
+        <toc dir="sdp"/>
+        -->
+        <tab dir="sdp"/>
+    </target>
     <!-- 
      | zipping 
     -->
@@ -49,5 +74,11 @@
         <zip destfile="build/zips/sdp.zip" basedir="build/html/sdp"/>
         <zip destfile="build/zips/buss.zip" basedir="build/html/buss"/>
         <zip destfile="build/zips/cons.zip" basedir="build/html/cons"/>
+    </target>
+    <target name="zipml">
+        <zip destfile="build/zipml/dsa.zip" basedir="build/cleanup-syntax/dsa"/>
+        <zip destfile="build/zipml/sdp.zip" basedir="build/cleanup-syntax/sdp"/>
+        <zip destfile="build/zipml/buss.zip" basedir="build/cleanup-syntax/buss"/>
+        <zip destfile="build/zipml/cons.zip" basedir="build/cleanup-syntax/cons"/>
     </target>
 </project>

@@ -19,7 +19,10 @@
             <xsl:variable name="d" as="node()*">
                 <xsl:apply-templates mode="shuffle-comments" select="$c"/>
             </xsl:variable>
-            <xsl:apply-templates mode="assign-ids" select="$d"/>
+            <xsl:variable name="e" as="node()*">
+                <xsl:apply-templates mode="assign-ids" select="$d"/>
+            </xsl:variable>
+            <xsl:apply-templates mode="rewrite-alias" select="$e"/>
         </envelope>
     </xsl:template>
     <!--
@@ -105,50 +108,64 @@
     </xsl:template>
 
     <!--  labelling of ids  -->
-    <xsl:template match="g:column-alias/g:id" mode="assign-ids">
-        <id object="column-alias">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
-    <xsl:template match="g:table-ref-aux-internal/g:id" mode="assign-ids">
-        <id object="table">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
-    <xsl:template match="g:table-ref-aux/g:id" mode="assign-ids">
-        <id object="table-alias">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
-    <xsl:template match="g:expression/g:id" mode="assign-ids">
-        <id object="column">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
-    <xsl:template match="g:general-table-ref/g:id" mode="assign-ids">
-        <id object="table">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
-    <xsl:template match="g:select-list-elements/g:id" mode="assign-ids">
-        <id object="table-alias">
-            <xsl:value-of select="."/>
-        </id>
-    </xsl:template> 
 
-    <xsl:template match="g:general-element-part/g:id[position() = 1]" mode="assign-ids">
-        <id object="table-alias">
+
+    <xsl:template match="g:general-table-ref/g:id" mode="assign-ids">
+        <table>
             <xsl:value-of select="."/>
-        </id>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:dml-table-expression-clause/g:id" mode="assign-ids">
+        <table>
+            <xsl:value-of select="."/>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:table-ref-aux-internal/g:id" mode="assign-ids">
+        <table>
+            <xsl:value-of select="."/>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:table-ref-aux/g:id" mode="assign-ids">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:select-list-elements/g:id" mode="assign-ids">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:general-element-part/g:id[position() = 1]" mode="assign-ids">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:expression/g:id" mode="assign-ids">
+        <column>
+            <xsl:value-of select="."/>
+        </column>
     </xsl:template>
     <xsl:template match="g:general-element-part/g:id[position() = 2]" mode="assign-ids">
-        <id object="column">
+        <column>
             <xsl:value-of select="."/>
-        </id>
+        </column>
     </xsl:template>
-    
-    
- 
+    <xsl:template match="g:column-alias" mode="assign-ids">
+        <column-alias>
+            <xsl:value-of select="g:id"/>
+        </column-alias>
+    </xsl:template>
+    <xsl:template match="g:merge-target/g:id[position() = 1]" mode="assign-ids">
+        <table>
+            <xsl:value-of select="."/>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:merge-target/g:id[position() = 2]" mode="assign-ids">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+
 
     <xsl:template match="g:t[not(ancestor::g:regular-id)]" mode="simplify-grammar">
         <t>
@@ -158,9 +175,98 @@
 
     <!--  remove elements with one g: child -->
     <xsl:template
-        match="g:*[count(g:*) = 1 and count(node()) = 1][matches(local-name(), '-expression|concatenation|atom|general-element|standard-function')]"
+        match="g:*[count(g:*) = 1 and count(node()) = 1][matches(local-name(), '-expression|concatenation|atom|standard-function|general-element')]"
         mode="simplify-grammar">
         <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    <!--  re-shuffle alias underneath select-list-elements into first expression where it belongs -->
+    <xsl:template match="g:select-list-elements" mode="rewrite-alias">
+        <select-list-elements>
+            <xsl:apply-templates select="g:expressions" mode="#current"/>
+        </select-list-elements>
+    </xsl:template>
+    <xsl:template match="g:select-list-elements/g:expressions/g:expression[position() = 1]"
+        mode="rewrite-alias" priority="1">
+        <expression>
+            <xsl:copy-of select="../../(* except g:expressions)"/>
+            <xsl:apply-templates mode="#current"/>
+        </expression>
+    </xsl:template>
+    <xsl:template
+        match="g:select-list-elements/g:expressions/g:expression[position() gt 1][g:general-element-part and c:c]"
+        mode="rewrite-alias" priority="1">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    <xsl:template match="g:select-list-elements/g:expressions" mode="rewrite-alias">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    <xsl:template match="g:query-block/g:selected-element" mode="rewrite-alias">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+
+    <xsl:template match="g:table-ref-aux | g:table-ref-aux-internal" mode="rewrite-alias">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    <xsl:template match="g:table-ref" mode="rewrite-alias">
+        <table-ref>
+            <xsl:apply-templates select="* except c:c[position() = last()]" mode="rewrite-alias"/>
+        </table-ref>
+        <xsl:apply-templates select="c:c[position() = last()]" mode="rewrite-alias"/>
+    </xsl:template>
+
+    <xsl:template match="g:subquery | g:subquery-basic-elements | g:query-block"
+        mode="rewrite-alias">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    
+    <!--
+        rewrites
+      -->
+    <xsl:template match="g:merge-target/g:table" mode="rewrite-alias">
+        <table>
+            <xsl:value-of select="."/>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:selected-tableview/g:id[not(position() = last())]" mode="rewrite-alias" priority="1">
+        <table>
+            <xsl:value-of select="."/>
+        </table>
+    </xsl:template>
+    <xsl:template match="g:selected-tableview/g:id[position() = last()]" mode="rewrite-alias" priority="1">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:merge-target/g:table-alias" mode="rewrite-alias">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:column-name[count(g:id) gt 1]/g:id[position() = 1]" mode="rewrite-alias"
+        priority="1">
+        <table-alias>
+            <xsl:value-of select="."/>
+        </table-alias>
+    </xsl:template>
+    <xsl:template match="g:column-name/g:id[position() = last()]" mode="rewrite-alias" priority="1">
+        <column>
+            <xsl:value-of select="."/>
+        </column>
+    </xsl:template>
+    <xsl:template match="g:id[ancestor::g:expression]" mode="rewrite-alias" priority="1">
+        <column>
+            <xsl:value-of select="."/>
+        </column>
+    </xsl:template>
+    
+    <xsl:template match="g:relational-expression" mode="rewrite-alias">
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+
+    <xsl:template match="g:general-element-part" mode="rewrite-alias">
+        <expression>
+            <xsl:apply-templates mode="#current"/>
+        </expression>
     </xsl:template>
 
     <!--
@@ -201,7 +307,6 @@
             </c:c>
         </xsl:if>
     </xsl:function>
-
     <xsl:function name="f:bundle-tokens" as="node()*">
         <xsl:param name="children" as="node()*"/>
         <xsl:param name="tokens" as="node()*"/>

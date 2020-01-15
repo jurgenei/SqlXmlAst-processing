@@ -52,12 +52,12 @@
     <macrodef name="tidy2lin">
         <attribute name="dir" default="NOT SET"/>
         <sequential>
-            <makeurl file="${build.html}/@{dir}/xref.xml" property="xref-uri"/>
+            <makeurl file="${build.lin}/@{dir}/tabs.xml" property="xref-uri"/>
             <xslt extension=".xml" basedir="${build.cleanup-syntax}" destdir="${build.lin}"
                 style="src/xml/stylesheets/tidy2lin.xslt" failOnTransformationError="false" force="true">
                 <factory name="net.sf.saxon.TransformerFactoryImpl"/>
                 <classpath location="${saxon.class.path}"/>
-                <include name="@{dir}/procedures/cusupdater/*.xml"/>
+                <include name="@{dir}/**/*.xml"/>
                 <param name="xref-uri" expression="${xref-uri}"/>
             </xslt>
         </sequential>
@@ -74,5 +74,16 @@
             </xslt>
         </sequential>
     </macrodef> 
-    
+    <macrodef name="tab">
+        <attribute name="dir" default="NOT SET"/>
+        <sequential>
+            <makeurl file="${build.cleanup-syntax}/@{dir}/tables" property="uri"/>
+            <xslt in="${src.xml.toc}" out="${build.lin}/@{dir}/tabs.xml"
+                style="src/xml/stylesheets/table-cols.xslt" failOnTransformationError="false" force="true">
+                <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+                <classpath location="${saxon.class.path}"/>
+                <param name="folder-uri" expression="${uri}"/>
+            </xslt>
+        </sequential>
+    </macrodef>
 </project>
